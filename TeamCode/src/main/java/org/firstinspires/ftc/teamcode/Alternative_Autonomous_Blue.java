@@ -1127,13 +1127,6 @@ public class Alternative_Autonomous_Blue extends OpMode {
 
         }
 
-//            if(Push4Complete)
-//            {
-//
-//                Push5 = true;
-//                Push4Complete = false;
-//
-//            }
 
 
 

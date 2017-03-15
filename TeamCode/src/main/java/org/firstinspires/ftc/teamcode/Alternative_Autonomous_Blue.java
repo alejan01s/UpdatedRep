@@ -20,6 +20,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Alternative_Autonomous_Blue extends OpMode {
 
+
+
     /*
 
     I2C GLOBAL VARIABLES
@@ -350,7 +352,7 @@ public class Alternative_Autonomous_Blue extends OpMode {
     }
 
     @Override
-    public void loop (){
+    public void loop () {
 
             /*
 
@@ -449,7 +451,7 @@ public class Alternative_Autonomous_Blue extends OpMode {
         bottomOD.enableLed(true);
         frontOD.enableLed(true);
 
-        if(firstCollect){
+        if (firstCollect) {
             CollectDistanceTime = true;
             firstCollect = false;
         }
@@ -486,7 +488,7 @@ public class Alternative_Autonomous_Blue extends OpMode {
         double roll = angles[2];
         double x = yaw;
 
-        if(x < 0){
+        if (x < 0) {
             x = x + 360;
         }
 
@@ -502,11 +504,9 @@ public class Alternative_Autonomous_Blue extends OpMode {
         buttonPusher2.setPosition(.5);
 
 
-        if(step == 0)
-        {
+        if (step == 0) {
 
-            while (FR.getCurrentPosition() < NumberOfRevs1)
-            {
+            while (FR.getCurrentPosition() < NumberOfRevs1) {
 
                 FR.getCurrentPosition();
 
@@ -517,44 +517,35 @@ public class Alternative_Autonomous_Blue extends OpMode {
 
             }
 
-                FL.setPower(0);
-                BL.setPower(0);
-                FR.setPower(0);
-                BR.setPower(0);
+            FL.setPower(0);
+            BL.setPower(0);
+            FR.setPower(0);
+            BR.setPower(0);
 
-                step = step + 1;
+            step = step + 1;
 
 
         }
 
-        if(step == 1)
-        {
+        if (step == 1) {
 
-            while(yaw > -16 || yaw < -19)
-            {
+            while (yaw > -16 || yaw < -19) {
 
                 angles = imu.getAngles();
                 yaw = angles[0];
 
-                if(yaw < -16 && yaw > -19)
-                {
+                if (yaw < -16 && yaw > -19) {
 
                     break;
 
-                }
-
-                else if(yaw > -16)
-                {
+                } else if (yaw > -16) {
 
                     FL.setPower(-0.4);
                     BL.setPower(-0.4);
                     FR.setPower(0.4);
                     BR.setPower(0.4);
 
-                }
-
-                else if(yaw < -19)
-                {
+                } else if (yaw < -19) {
 
                     FL.setPower(0.4);
                     BL.setPower(0.4);
@@ -570,94 +561,73 @@ public class Alternative_Autonomous_Blue extends OpMode {
             FR.setPower(0);
             BR.setPower(0);
 
-            NumberOfRevs2 = FR.getCurrentPosition() +5000;
+            NumberOfRevs2 = FR.getCurrentPosition() + 4750;
 
             step = step + 1;
 
         }
 
-        if(step == 2)
-        {
+        if (step == 2) {
 
-//            if(!Push1Complete)
-//            {
-//
-//                Push1 = true;
-//
-//            }
+            if (!Push1Complete) {
 
-            while(FR.getCurrentPosition() < NumberOfRevs2) {
+                Push1 = true;
 
-                FR.getCurrentPosition();
-
-                if (FR.getCurrentPosition() < NumberOfRevs2 - 850) {
-
-                    FL.setPower(1);
-                    BL.setPower(1);
-                    FR.setPower(1);
-                    BR.setPower(1);
-
-                } else if (FR.getCurrentPosition() < NumberOfRevs2) {
-
-                    FL.setPower(0.35);
-                    BL.setPower(0.35);
-                    FR.setPower(0.35);
-                    BR.setPower(0.35);
-
-                } else if (FR.getCurrentPosition() > NumberOfRevs2) {
-
-                    FL.setPower(0);
-                    BL.setPower(0);
-                    FR.setPower(0);
-                    BR.setPower(0);
-
-                    break;
-
-                }
             }
 
-            FL.setPower(0);
-            BL.setPower(0);
-            FR.setPower(0);
-            BR.setPower(0);
 
-            step = step + 1;
+            if (FR.getCurrentPosition() < NumberOfRevs2 - 850) {
+
+                FL.setPower(1);
+                BL.setPower(1);
+                FR.setPower(1);
+                BR.setPower(1);
+
+            } else if (FR.getCurrentPosition() < NumberOfRevs2) {
+
+                FL.setPower(0.35);
+                BL.setPower(0.35);
+                FR.setPower(0.35);
+                BR.setPower(0.35);
+
+            } else if (FR.getCurrentPosition() > NumberOfRevs2) {
+
+                FL.setPower(0);
+                BL.setPower(0);
+                FR.setPower(0);
+                BR.setPower(0);
+
+                step = step + 1;
+
+            }
+
 
         }
 
-        if(step == 3)
-        {
+        if (step == 3) {
 
-            while(yaw > 0 || yaw < -1)
-            {
+            while (yaw > -3 || yaw < -4) {
 
                 angles = imu.getAngles();
                 yaw = angles[0];
 
-                if(yaw < 0 && yaw > -1)
-                {
+                if (yaw < -3 && yaw > -4) {
 
                     break;
 
-                }
+                } else if (yaw > -3) {
 
-                else if(yaw > 0)
-                {
+                    FL.setPower(-0.2);
+                    BL.setPower(-0.2);
+                    FR.setPower(0.2);
+                    BR.setPower(0.2);
 
-                    FL.setPower(-0.25);
-                    BL.setPower(-0.25);
-                    FR.setPower(0.25);
-                    BR.setPower(0.25);
+                } else if (yaw < -4) {
 
-                }
-
-                else if(yaw < -1)
-                {
-
-                    FL.setPower(0.25);
-                    BL.setPower(0.25);
-                    FR.setPower(-0.25);
-                    BR.setPower(-0.25);
+                    FL.setPower(0.2);
+                    BL.setPower(0.2);
+                    FR.setPower(-0.2);
+                    BR.setPower(-0.2);
 
                 }
 
@@ -674,10 +644,9 @@ public class Alternative_Autonomous_Blue extends OpMode {
 
         }
 
-        if(step == 4)
-        {
+        if (step == 4) {
 
-            while(LeftDistanceTime > 1275 || LeftDistanceTime == 0) {
+            while (LeftDistanceTime > 1300 || LeftDistanceTime == 0) {
                 CollectDistanceTime = true;
 
                 //Reading the Sonar Sensors
@@ -732,8 +701,7 @@ public class Alternative_Autonomous_Blue extends OpMode {
                     LeftDistanceTime = (LeftDistanceTimeHDouble * 256) + LeftDistanceTimeLDouble;
                 }
 
-                if(LeftDistanceTime < 1275 && LeftDistanceTime != 0)
-                {
+                if (LeftDistanceTime < 1300 && LeftDistanceTime != 0) {
 
                     break;
 
@@ -753,28 +721,26 @@ public class Alternative_Autonomous_Blue extends OpMode {
 
             CollectDistanceTime = false;
 
-            step = step + 100;
+            step = step + 1;
 
         }
 
-        if(step == 5)
-        {
+        if (step == 5) {
 
             while (bottomOD.getRawLightDetected() < .04) {
 
                 bottomOD.getLightDetected();
 
-                if(bottomOD.getRawLightDetected() > 0.4)
-                {
+                if (bottomOD.getRawLightDetected() > 0.4) {
 
                     break;
 
                 }
 
-                FR.setPower(.2);
-                BR.setPower(.2);
-                FL.setPower(.2);
-                BL.setPower(.2);
+                FR.setPower(.4);
+                BR.setPower(.4);
+                FL.setPower(.4);
+                BL.setPower(.4);
             }
 
             FR.setPower(0);
@@ -782,41 +748,60 @@ public class Alternative_Autonomous_Blue extends OpMode {
             FL.setPower(0);
             BL.setPower(0);
 
+            NumberOfRevs1 = FR.getCurrentPosition() + 15;
+
             step = step + 1;
 
         }
 
-        if(step == 6)
-        {
-            NumberOfRevs4 = FL.getCurrentPosition() - 30;
-            NumberOfRevs3 = FL.getCurrentPosition() - 340;
-            step=step+1;
+        if (step == 6) {
+
+            if (FR.getCurrentPosition() < NumberOfRevs1) {
+
+                FR.setPower(-0.2);
+                BR.setPower(-0.2);
+                FL.setPower(-0.2);
+                BL.setPower(-0.2);
+
+            } else {
+
+                FR.setPower(0);
+                BR.setPower(0);
+                FL.setPower(0);
+                BL.setPower(0);
+
+                step = step + 1;
+
+            }
+
         }
 
-        if(step == 7){
+        if (step == 7) {
+            NumberOfRevs4 = FL.getCurrentPosition() - 30;
+            NumberOfRevs3 = FL.getCurrentPosition() - 240;
+            step = step + 1;
+        }
+
+        if (step == 8) {
             isRed = CLRed > CLBlue && CLRed >= 1 ? true : false;
             isBlue = CLBlue > CLRed && CLBlue >= 1 ? true : false;
-            if(isRed && !OppPushSequence){
+            if (isBlue && !OppPushSequence) {
                 //push button
                 nearPush = true;
-            }
-            else if(isBlue && !nearPush){
+            } else if (isRed && !nearPush) {
                 //move forward confirm and push button
                 OppPushSequence = true;
             }
-            if(nearPush){
+            if (nearPush) {
 
-                if(FL.getCurrentPosition() > NumberOfRevs4)
-                {
+                if (FL.getCurrentPosition() > NumberOfRevs4) {
 
-                    BL.setPower(-.15);
-                    BR.setPower(-.15);
-                    FR.setPower(-.15);
-                    FL.setPower(-.15);
+                    BL.setPower(-.2);
+                    BR.setPower(-.2);
+                    FR.setPower(-.2);
+                    FL.setPower(-.2);
 
-                }
-
-                else {
+                } else {
 
                     BL.setPower(0);
                     BR.setPower(0);
@@ -848,29 +833,24 @@ public class Alternative_Autonomous_Blue extends OpMode {
 //
 //                        }
 
-                    if(!Push3Complete)
-                    {
+                    if (!Push3Complete) {
 
                         Push2 = true;
 
-                    }
-                    else
-                    {
+                    } else {
 
                         step = step + 1;
 
                     }
                 }
 
-            }
-            else if(OppPushSequence){
-                if(FL.getCurrentPosition() > NumberOfRevs3) {
-                    BL.setPower(-.15);
-                    BR.setPower(-.15);
-                    FR.setPower(-.15);
-                    FL.setPower(-.15);
-                }
-                else {
+            } else if (OppPushSequence) {
+                if (FL.getCurrentPosition() > NumberOfRevs3) {
+                    BL.setPower(-.2);
+                    BR.setPower(-.2);
+                    FR.setPower(-.2);
+                    FL.setPower(-.2);
+                } else {
                     BL.setPower(0);
                     BR.setPower(0);
                     FR.setPower(0);
@@ -926,14 +906,11 @@ public class Alternative_Autonomous_Blue extends OpMode {
                             }
                         }*/
 
-                    if(!Push3Complete)
-                    {
+                    if (!Push3Complete) {
 
                         Push2 = true;
 
-                    }
-                    else
-                    {
+                    } else {
 
                         step = step + 1;
 
@@ -941,6 +918,651 @@ public class Alternative_Autonomous_Blue extends OpMode {
 
                 }
             }
+        }
+
+        if (step == 9) {
+
+            NumberOfRevs1 = FR.getCurrentPosition() - 3000;
+            if (OppPushSequence) {
+
+                NumberOfRevs1 = FR.getCurrentPosition() - 2500;
+
+            }
+            step = step + 1;
+
+        }
+
+        if (step == 10) {
+
+            while (FR.getCurrentPosition() > NumberOfRevs1) {
+
+                if (!Push5Complete) {
+
+                    Push5 = true;
+
+                }
+
+
+                FR.getCurrentPosition();
+
+                if (FR.getCurrentPosition() > NumberOfRevs1 - 800) {
+
+                    FR.setPower(-1);
+                    BR.setPower(-1);
+                    FL.setPower(-1);
+                    BL.setPower(-1);
+
+                } else if (FR.getCurrentPosition() > NumberOfRevs1) {
+
+                    FR.setPower(-0.5);
+                    BR.setPower(-0.5);
+                    FL.setPower(-0.5);
+                    BL.setPower(-0.5);
+
+                } else if (FR.getCurrentPosition() < NumberOfRevs1) {
+
+                    break;
+
+                }
+            }
+
+
+            FR.setPower(0);
+            BR.setPower(0);
+            FL.setPower(0);
+            BL.setPower(0);
+
+            step = step + 1;
+
+        }
+
+        if(step == 11)
+        {
+
+            while (yaw > 0 || yaw < -1) {
+
+                angles = imu.getAngles();
+                yaw = angles[0];
+
+                if (yaw < 0 && yaw > -1) {
+
+                    break;
+
+                } else if (yaw > 0) {
+
+                    FL.setPower(-0.2);
+                    BL.setPower(-0.2);
+                    FR.setPower(0.2);
+                    BR.setPower(0.2);
+
+                } else if (yaw < -1) {
+
+                    FL.setPower(0.2);
+                    BL.setPower(0.2);
+                    FR.setPower(-0.2);
+                    BR.setPower(-0.2);
+
+                }
+
+            }
+
+            telemetry.update();
+
+            FL.setPower(0);
+            BL.setPower(0);
+            FR.setPower(0);
+            BR.setPower(0);
+
+            step = step + 1;
+
+        }
+
+        if (step == 12) {
+
+            LeftDistanceTime = 10000;
+
+            if (!Push6Complete) {
+
+                Push6 = true;
+
+            } else {
+
+                step = step + 1;
+
+            }
+
+        }
+
+        if (step == 13) {
+
+            while (LeftDistanceTime > 1075 || LeftDistanceTime == 0) {
+                CollectDistanceTime = true;
+
+                //Reading the Sonar Sensors
+
+                //Reading Distance in MicroSeconds
+                if (CollectDistanceTime == true)//Once the CollectDistanceTime boolean is switched on, the robot takes a snapshot of the distance in MicroSeconds
+                {
+
+                    StartRead = true;
+
+
+                    CollectDistanceTime = false;
+                }
+
+                if (StartRead == true) {
+                    //Command the Sonars to Take a Snapshot
+                    SonarRReader.write8(0, 82);
+                    SonarLReader.write8(0, 82);
+
+                    LookForValue = true;
+                    StartRead = false;
+
+                }
+
+                if (LookForValue == true) {
+
+                    //Save the High and Low Bytes for the Right Sensor from the Last Snapshot
+                    RightDistanceTimeH = SonarRReader.read(0x02, 1);
+                    RightDistanceTimeL = SonarRReader.read(0x03, 1);
+                    RightDistanceTimeHDouble = RightDistanceTimeH[0] & 0xFF;
+                    RightDistanceTimeLDouble = RightDistanceTimeL[0] & 0xFF;
+
+                    //Save the High and Low Bytes for the Left Sensor from the Last Snapshot
+                    LeftDistanceTimeH = SonarLReader.read(0x02, 1);
+                    LeftDistanceTimeL = SonarLReader.read(0x03, 1);
+                    LeftDistanceTimeHDouble = LeftDistanceTimeH[0] & 0xFF;
+                    LeftDistanceTimeLDouble = LeftDistanceTimeL[0] & 0xFF;
+
+                }
+
+                if (((RightDistanceTimeHDouble != 255) && (RightDistanceTimeLDouble != 255)) || ((LeftDistanceTimeHDouble != 255) && (LeftDistanceTimeLDouble != 255))) {
+
+                    LookForValue = false;
+                    RecordValue = true;
+
+                }
+
+                if (RecordValue == true) {
+
+                    //Save Full Distance Values from Last Snapshot
+                    RightDistanceTime = (RightDistanceTimeHDouble * 256) + RightDistanceTimeLDouble;
+                    LeftDistanceTime = (LeftDistanceTimeHDouble * 256) + LeftDistanceTimeLDouble;
+                }
+
+                if (LeftDistanceTime < 1075 && LeftDistanceTime != 0) {
+
+                    break;
+
+                }
+
+                FR.setPower(-.15);
+                BR.setPower(.15);
+                FL.setPower(.15);
+                BL.setPower(-.15);
+
+            }
+
+            FR.setPower(0);
+            BR.setPower(0);
+            FL.setPower(0);
+            BL.setPower(0);
+
+            CollectDistanceTime = false;
+
+            step = step + 1;
+
+        }
+
+        if (step == 14) {
+
+            while (bottomOD.getRawLightDetected() < .04) {
+
+                bottomOD.getLightDetected();
+
+                if (bottomOD.getRawLightDetected() > 0.4) {
+
+                    break;
+
+                }
+
+                FR.setPower(.4);
+                BR.setPower(.4);
+                FL.setPower(.4);
+                BL.setPower(.4);
+            }
+
+            FR.setPower(0);
+            BR.setPower(0);
+            FL.setPower(0);
+            BL.setPower(0);
+
+            NumberOfRevs1 = FR.getCurrentPosition() + 15;
+
+            step = step + 1;
+
+        }
+
+        if (step == 15) {
+
+            if (FR.getCurrentPosition() < NumberOfRevs1) {
+
+                FR.setPower(-0.15);
+                BR.setPower(-0.15);
+                FL.setPower(-0.15);
+                BL.setPower(-0.15);
+
+            } else {
+
+                FR.setPower(0);
+                BR.setPower(0);
+                FL.setPower(0);
+                BL.setPower(0);
+
+                step = step + 1;
+
+            }
+
+        }
+
+        if (step == 16) {
+
+            Push3Complete = false;
+            Push5Complete = false;
+            Push6Complete = false;
+
+            nearPush = false;
+            OppPushSequence = false;
+
+            NumberOfRevs4 = FL.getCurrentPosition() - 30;
+            NumberOfRevs3 = FL.getCurrentPosition() - 300;
+            step = step + 1;
+        }
+
+        if (step == 17) {
+            isRed = CLRed > CLBlue && CLRed >= 1 ? true : false;
+            isBlue = CLBlue > CLRed && CLBlue >= 1 ? true : false;
+            if (isBlue && !OppPushSequence) {
+                //push button
+                nearPush = true;
+            } else if (isRed && !nearPush) {
+                //move forward confirm and push button
+                OppPushSequence = true;
+            }
+            if (nearPush) {
+
+                if (FL.getCurrentPosition() > NumberOfRevs4) {
+
+                    BL.setPower(-.15);
+                    BR.setPower(-.15);
+                    FR.setPower(-.15);
+                    FL.setPower(-.15);
+
+                } else {
+
+                    BL.setPower(0);
+                    BR.setPower(0);
+                    FR.setPower(0);
+                    FL.setPower(0);
+
+//                        sleepOn = true;
+//                        timeToSleep = 5;
+//
+//                        if (sleepOn) {
+//
+//                            timeToWake = System.currentTimeMillis() + timeToSleep;
+//
+//                            while (System.currentTimeMillis() < timeToWake) {
+//
+//                            }
+//
+//                            timeToSleep = 0;
+//
+//                            sleepOn = false;
+//
+//                        }
+//
+//                        if (!pushed) {
+//                            push = true;
+//                        } else {
+//                            step = step + 1;
+//
+//
+//                        }
+
+                    if (!Push3Complete) {
+
+                        Push2 = true;
+
+                    } else {
+
+                        step = step + 1;
+
+                    }
+                }
+
+            } else if (OppPushSequence) {
+                if (FL.getCurrentPosition() > NumberOfRevs3) {
+                    BL.setPower(-.15);
+                    BR.setPower(-.15);
+                    FR.setPower(-.15);
+                    FL.setPower(-.15);
+                } else {
+                    BL.setPower(0);
+                    BR.setPower(0);
+                    FR.setPower(0);
+                    FL.setPower(0);
+//                        sleepOn = true;
+//                        timeToSleep = 5;
+//
+//                        if (sleepOn) {
+//
+//                            timeToWake = System.currentTimeMillis() + timeToSleep;
+//
+//                            while (System.currentTimeMillis() < timeToWake) {
+//
+//                            }
+//
+//                            timeToSleep = 0;
+//
+//                            sleepOn = false;
+//
+//                        }
+//                        if (!pushed) {
+//                            push = true;
+//                        }
+//                        if (pushed) {
+//                            step = step + 1;
+//                        }
+                        /*if(isBlue) {
+                            if (!pushed) {
+                                push = true;
+                            }
+                            if (pushed) {
+                                step = step + 1;
+                            }
+                        }
+                        else{
+                            if(FL.getCurrentPosition() < NumberOfRevs3) {
+                                BL.setPower(.1);
+                                BR.setPower(.1);
+                                FR.setPower(.1);
+                                FL.setPower(.1);
+                            }
+                            else {
+                                BL.setPower(0);
+                                BR.setPower(0);
+                                FR.setPower(0);
+                                FL.setPower(0);
+                                if (!pushed) {
+                                    push = true;
+                                }
+                                if (pushed) {
+                                    step = step + 1;
+                                }
+                            }
+                        }*/
+
+                    if (!Push3Complete) {
+
+                        Push2 = true;
+
+                    } else {
+
+                        step = step + 1;
+
+                    }
+
+                }
+            }
+        }
+
+//        if(step == 17.5)
+//        {
+//
+//            if(!Push6Complete)
+//            {
+//
+//                Push6 = true;
+//
+//            }
+//
+//            else
+//            {
+//
+//                step = step + 0.5;
+//
+//            }
+//
+//        }
+
+        if (step == 18)
+        {
+
+
+            if(OppPushSequence) {
+
+                while (yaw > -88 || yaw < -92) {
+
+                    angles = imu.getAngles();
+                    yaw = angles[0];
+
+                    if (yaw < -88 && yaw > -92) {
+
+                        break;
+
+                    } else if (yaw > -88) {
+
+                        FL.setPower(-0.4);
+                        BL.setPower(-0.4);
+                        FR.setPower(0.4);
+                        BR.setPower(0.4);
+
+                    } else if (yaw < -92) {
+
+                        FL.setPower(0.4);
+                        BL.setPower(0.4);
+                        FR.setPower(-0.4);
+                        BR.setPower(-0.4);
+
+                    }
+
+                }
+
+                telemetry.update();
+
+                FL.setPower(0);
+                BL.setPower(0);
+                FR.setPower(0);
+                BR.setPower(0);
+
+                NumberOfRevs1 = FR.getCurrentPosition() - 50;
+
+                step = step + 1;
+            }
+
+            else
+            {
+
+                while (yaw > -83 || yaw < -87) {
+
+                    angles = imu.getAngles();
+                    yaw = angles[0];
+
+                    if (yaw < -83 && yaw > -87) {
+
+                        break;
+
+                    } else if (yaw > -83) {
+
+                        FL.setPower(-0.4);
+                        BL.setPower(-0.4);
+                        FR.setPower(0.4);
+                        BR.setPower(0.4);
+
+                    } else if (yaw < -87) {
+
+                        FL.setPower(0.4);
+                        BL.setPower(0.4);
+                        FR.setPower(-0.4);
+                        BR.setPower(-0.4);
+
+                    }
+
+                }
+
+                telemetry.update();
+
+                FL.setPower(0);
+                BL.setPower(0);
+                FR.setPower(0);
+                BR.setPower(0);
+
+                NumberOfRevs1 = FR.getCurrentPosition() - 50;
+
+                step = step + 1;
+
+            }
+
+        }
+
+        if(step == 19)
+        {
+
+            Push6Complete = false;
+
+            step = step + 1;
+
+        }
+
+        if(step == 20)
+        {
+
+
+            while(FR.getCurrentPosition() > NumberOfRevs1) {
+
+                FR.getCurrentPosition();
+
+                if (FR.getCurrentPosition() > NumberOfRevs1) {
+                    FL.setPower(-0.3);
+                    BL.setPower(-0.3);
+                    FR.setPower(-0.3);
+                    BR.setPower(-0.3);
+
+                } else {
+
+                    break;
+
+                }
+            }
+
+            FL.setPower(0);
+            BL.setPower(0);
+            FR.setPower(0);
+            BR.setPower(0);
+
+            step = step + 1;
+
+        }
+
+        //LAUNCH BALLS
+        if(step == 21){
+            if(!fired) {
+                shoot1 = true;
+            }
+            if(fired) {
+                step = step + 1;
+            }
+        }
+        if(step == 22){
+
+            fired = false;
+
+            if(!shoot) {
+                shoot = true;
+                step=step+1;
+            }
+        }
+
+        if (step == 23 && fired == true)
+        {
+
+            while (yaw > -8 || yaw < -10) {
+
+                angles = imu.getAngles();
+                yaw = angles[0];
+
+                if (yaw < -8 && yaw > -10) {
+
+                    break;
+
+                } else if (yaw > -8) {
+
+                    FL.setPower(-0.4);
+                    BL.setPower(-0.4);
+                    FR.setPower(0.4);
+                    BR.setPower(0.4);
+
+                } else if (yaw < -10) {
+
+                    FL.setPower(0.4);
+                    BL.setPower(0.4);
+                    FR.setPower(-0.4);
+                    BR.setPower(-0.4);
+
+                }
+
+            }
+
+            telemetry.update();
+
+            FL.setPower(0);
+            BL.setPower(0);
+            FR.setPower(0);
+            BR.setPower(0);
+
+            NumberOfRevs1 = FR.getCurrentPosition() - 2000;
+
+            step = step + 1;
+
+        }
+
+        if(step == 24)
+        {
+
+            buttonPusher.setPosition(0.4);
+
+            while(FR.getCurrentPosition() > NumberOfRevs1) {
+
+                FR.getCurrentPosition();
+
+                if (FR.getCurrentPosition() > NumberOfRevs1) {
+                    FL.setPower(-0.8);
+                    BL.setPower(-0.8);
+                    FR.setPower(-0.8);
+                    BR.setPower(-0.8);
+
+                } else {
+
+                    break;
+
+                }
+            }
+
+            FL.setPower(0);
+            BL.setPower(0);
+            FR.setPower(0);
+            BR.setPower(0);
+
+            step = step + 1;
+
+        }
+
+        if(step == 25)
+        {
+
+            buttonPusher.setPosition(0.5);
+
         }
 
 
@@ -1127,6 +1749,13 @@ public class Alternative_Autonomous_Blue extends OpMode {
 
         }
 
+//            if(Push4Complete)
+//            {
+//
+//                Push5 = true;
+//                Push4Complete = false;
+//
+//            }
 
 
 
@@ -1176,7 +1805,7 @@ public class Alternative_Autonomous_Blue extends OpMode {
         {
 
             Push6Complete = false;
-            PusherSleep = System.currentTimeMillis() + 2000;
+            PusherSleep = System.currentTimeMillis() + 750;
             buttonPusher.setPosition(0.4);
             Push6Go = true;
             Push6 = false;
@@ -1223,6 +1852,8 @@ public class Alternative_Autonomous_Blue extends OpMode {
 
         if(shoot) {
 
+            fired = false;
+
             if(LauncherM.getCurrentPosition() <= 1000 + (EncoderClicks - 2520))
             {
 
@@ -1251,6 +1882,20 @@ public class Alternative_Autonomous_Blue extends OpMode {
             } else {
                 LauncherM.setPower(0);
                 shoot = false;
+                EncoderClicks = EncoderClicks + 2520;
+
+                fired = true;
+            }
+        }
+
+        if(shoot1){
+            if (LauncherM.getCurrentPosition() <= EncoderClicks - 500) {
+                LauncherM.setPower(0.85);
+            }
+            else{
+                LauncherM.setPower(0);
+                fired = true;
+                shoot1 = false;
                 EncoderClicks = EncoderClicks + 2520;
             }
         }

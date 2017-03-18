@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import java.util.Timer;
@@ -79,6 +80,8 @@ public class TeleOperations extends LinearOpMode {
     public boolean runReloaderDown;
 
     public boolean setEncoder = true;
+
+    public boolean overrideLauncher = false;
 
     public void initializeRobot() throws InterruptedException {
 
@@ -168,7 +171,7 @@ public class TeleOperations extends LinearOpMode {
         tensionLift = false;
 
         while(setEncoder == true) {
-            if (LauncherM.getCurrentPosition() < 3000) {
+            if (LauncherM.getCurrentPosition() < 3000 || LauncherM.getCurrentPosition() > 7000) {
 
                 EncoderClicks = LauncherM.getCurrentPosition() + 2520;
 
@@ -323,7 +326,7 @@ public class TeleOperations extends LinearOpMode {
 //                }
             }
 
-            if(!shoot && !fire)
+            if(!shoot && !fire && !overrideLauncher)
             {
 
                 if(LauncherM.getCurrentPosition() > (EncoderClicks - 2520))
@@ -950,6 +953,25 @@ public class TeleOperations extends LinearOpMode {
                 buttonInit = false;
             }
 
+            //MANUAL LAUNCHER OVERRIDE
+
+            if((gamepad1.dpad_up || gamepad1.dpad_down) && !shoot){
+                overrideLauncher = true;
+            }
+
+            if(overrideLauncher){
+                if(gamepad1.dpad_up){
+                    LauncherM.setPower(.25);
+                }
+                else if(gamepad1.dpad_down){
+                    LauncherM.setPower(-.25);
+                }
+                else{
+                    LauncherM.setPower(0);
+                    EncoderClicks = LauncherM.getCurrentPosition() + 2520;
+                    overrideLauncher = false;
+                }
+            }
             /*
             if(gamepad1.y){
                 buttonPusher.setPosition(.4);

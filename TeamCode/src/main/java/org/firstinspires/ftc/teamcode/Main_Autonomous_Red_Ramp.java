@@ -902,8 +902,8 @@ public class Main_Autonomous_Red_Ramp extends OpMode {
 
         //set possible rev3
         if(step == 7){
-            NumberOfRevs4 = FL.getCurrentPosition() - 45;
-            NumberOfRevs3 = FL.getCurrentPosition() - 340;
+            NumberOfRevs4 = FL.getCurrentPosition() - 35;
+            NumberOfRevs3 = FL.getCurrentPosition() - 315;
             step=step+1;
         }
 
@@ -1205,11 +1205,11 @@ public class Main_Autonomous_Red_Ramp extends OpMode {
             step = step + .25;
         }
         if(step == 11.5){
-            while(LeftDistanceTime > 1200 || LeftDistanceTime == 0) {
+            while(LeftDistanceTime > 1160 || LeftDistanceTime == 0) {
                 CollectDistanceTime = true;
 
                 //Reading the Sonar Sensors
-                if(LeftDistanceTime < 1200 && !(LeftDistanceTime == 0)){
+                if(LeftDistanceTime < 1160 && !(LeftDistanceTime == 0)){
                     break;
                 }
                 //Reading Distance in MicroSeconds

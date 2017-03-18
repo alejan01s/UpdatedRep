@@ -674,16 +674,16 @@ public class Main_Autonomous_Red_Center extends OpMode {
 //                    BR.setPower(0.05);
 //                    BL.setPower(-.05);
 //                }
-            while(yaw < -1.5 || yaw > 0){
+            while(yaw < -1 || yaw > 0){
                 angles = imu.getAngles();
                 yaw = angles[0];
-                if(yaw < -1.5){
+                if(yaw < -1){
 
                     //turn clockwise
-                    FR.setPower(-.2);
-                    FL.setPower(.2);
-                    BR.setPower(-.2);
-                    BL.setPower(.2);
+                    FR.setPower(-.15);
+                    FL.setPower(.15);
+                    BR.setPower(-.15);
+                    BL.setPower(.15);
 
                 }
                 else if(yaw > 0){
@@ -696,7 +696,7 @@ public class Main_Autonomous_Red_Center extends OpMode {
 
                 }
 
-                if(yaw > -1.5 && yaw < 0)
+                if(yaw > -1 && yaw < 0)
                 {
 
                     break;
@@ -910,8 +910,8 @@ public class Main_Autonomous_Red_Center extends OpMode {
 
         //set possible rev3
         if(step == 7){
-            NumberOfRevs4 = FL.getCurrentPosition() - 45;
-            NumberOfRevs3 = FL.getCurrentPosition() - 340;
+            NumberOfRevs4 = FL.getCurrentPosition() - 35;
+            NumberOfRevs3 = FL.getCurrentPosition() - 315;
             step=step+1;
         }
 
@@ -1221,7 +1221,7 @@ public class Main_Autonomous_Red_Center extends OpMode {
             step = step + .25;
         }
         if(step == 11.5){
-            while(LeftDistanceTime > 1200 || LeftDistanceTime == 0) {
+            while(LeftDistanceTime > 1160 || LeftDistanceTime == 0) {
                 CollectDistanceTime = true;
 
                 //Reading the Sonar Sensors
@@ -1276,17 +1276,17 @@ public class Main_Autonomous_Red_Center extends OpMode {
                     LeftDistanceTime = (LeftDistanceTimeHDouble * 256) + LeftDistanceTimeLDouble;
                 }
 
-                if(LeftDistanceTime < 1200 && LeftDistanceTime != 0)
+                if(LeftDistanceTime < 1160 && LeftDistanceTime != 0)
                 {
 
                     break;
 
                 }
 
-                FR.setPower(-.1);
-                BR.setPower(.1);
-                FL.setPower(.1);
-                BL.setPower(-.1);
+                FR.setPower(-.15);
+                BR.setPower(.15);
+                FL.setPower(.15);
+                BL.setPower(-.15);
 
             }
 
@@ -1573,7 +1573,7 @@ public class Main_Autonomous_Red_Center extends OpMode {
             if(OppPushSequence)
             {
 
-                NumberOfRevs3 = FL.getCurrentPosition() + 3200;
+                NumberOfRevs3 = FL.getCurrentPosition() + 3500;
 
             }
             step=step+1;

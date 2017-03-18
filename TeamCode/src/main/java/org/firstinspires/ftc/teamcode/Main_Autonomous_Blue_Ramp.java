@@ -316,8 +316,8 @@ I2C GLOBAL VARIABLES
     double PusherSleep = 0;
 
     //REVOLUTION VARIABLES
-    int NumberOfRevs1 = -220;
-    int NumberOfRevs2 = -120;
+    int NumberOfRevs1 = -170;
+    int NumberOfRevs2 = -70;
 
     //ANGLE VARIABLES
     double Angle1 = 190;
@@ -575,9 +575,9 @@ I2C GLOBAL VARIABLES
                     FR.setPower(0);
                     FL.setPower(0);
 
-                    NumberOfRevs5 = FL.getCurrentPosition() - 4900;
+                    NumberOfRevs5 = FL.getCurrentPosition() - 5300;
                     NumberOfRevs4 = FL.getCurrentPosition() - 4200;
-                    NumberOfRevs3 = FL.getCurrentPosition() - 5450;
+                    NumberOfRevs3 = FL.getCurrentPosition() - 5950;
                     step = step + 0.1;
                 }
             }
@@ -690,13 +690,13 @@ I2C GLOBAL VARIABLES
 //                    BR.setPower(0.05);
 //                    BL.setPower(-.05);
 //                }
-            while(yaw < 0.5 || yaw > 2){
+            while(yaw < 1 || yaw > 2.5){
                 angles = imu.getAngles();
                 yaw = angles[0];
-                if(yaw > .5 && yaw < 2){
+                if(yaw > 1 && yaw < 2.5){
                     break;
                 }
-                if(yaw < 0.5){
+                if(yaw < 1){
 
                     //turn clockwise
                     FR.setPower(-.2);
@@ -705,7 +705,7 @@ I2C GLOBAL VARIABLES
                     BL.setPower(.2);
 
                 }
-                else if(yaw > 2){
+                else if(yaw > 2.5){
 
                     //turn counter-clockwise
                     FR.setPower(0.2);
@@ -808,11 +808,11 @@ I2C GLOBAL VARIABLES
         }
         //set revs3
         if(step == 6){
-            while(RightDistanceTime > 1125 || RightDistanceTime == 0) {
+            while(RightDistanceTime > 1200 || RightDistanceTime == 0) {
                 CollectDistanceTime = true;
 
                 //Reading the Sonar Sensors
-                if(RightDistanceTime < 1125 && !(RightDistanceTime == 0)){
+                if(RightDistanceTime < 1200 && !(RightDistanceTime == 0)){
                     break;
                 }
                 //Reading Distance in MicroSeconds
@@ -1072,11 +1072,11 @@ I2C GLOBAL VARIABLES
         //set next rev3
         if(step == 9){
 
-            NumberOfRevs3 = FL.getCurrentPosition() - 1000;
+            NumberOfRevs3 = FL.getCurrentPosition() - 2000;
             if(OppPushSequence)
             {
 
-                NumberOfRevs3 = FL.getCurrentPosition() - 575;
+                NumberOfRevs3 = FL.getCurrentPosition() - 1000;
 
             }
             step=step+1;
@@ -1092,39 +1092,36 @@ I2C GLOBAL VARIABLES
                 Push5 = true;
             }
 
-            if(FL.getCurrentPosition() > NumberOfRevs3 + 600) {
-                BL.setPower(-1);
-                BR.setPower(-1);
-                FR.setPower(-1);
-                FL.setPower(-1);
-            }
+                if (FL.getCurrentPosition() > NumberOfRevs3 + 150 && FL.getCurrentPosition() < NumberOfRevs3 + 75) {
+                    BL.setPower(-1);
+                    BR.setPower(-1);
+                    FR.setPower(-1);
+                    FL.setPower(-1);
+                } else if (FL.getCurrentPosition() > NumberOfRevs3 + 75 && FL.getCurrentPosition() < NumberOfRevs3) {
 
-            else if(FL.getCurrentPosition() > NumberOfRevs3 + 400)
-            {
+                    BL.setPower(-1);
+                    BR.setPower(-1);
+                    FR.setPower(-1);
+                    FL.setPower(-1);
 
-                BL.setPower(-.65);
-                BR.setPower(-.65);
-                FR.setPower(-.65);
-                FL.setPower(-.65);
+                } else if (FL.getCurrentPosition() > NumberOfRevs3) {
 
-            }
+                    BL.setPower(-.5);
+                    BR.setPower(-.5);
+                    FR.setPower(-.5);
+                    FL.setPower(-.5);
 
-            else if(FL.getCurrentPosition() > NumberOfRevs3)
-            {
+                }
 
-                BL.setPower(-.35);
-                BR.setPower(-.35);
-                FR.setPower(-.35);
-                FL.setPower(-.35);
+                else {
 
-            }
-            else {
-                BL.setPower(0);
-                BR.setPower(0);
-                FR.setPower(0);
-                FL.setPower(0);
-                step=step+1;
-            }
+                    BL.setPower(0);
+                    BR.setPower(0);
+                    FR.setPower(0);
+                    FL.setPower(0);
+                    step = step + 1;
+                }
+
         }
 
         //MOVE to line

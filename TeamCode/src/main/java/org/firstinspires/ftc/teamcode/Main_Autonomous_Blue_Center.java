@@ -577,9 +577,9 @@ public class Main_Autonomous_Blue_Center extends OpMode {
                     FR.setPower(0);
                     FL.setPower(0);
 
-                    NumberOfRevs5 = FL.getCurrentPosition() - 4900;
+                    NumberOfRevs5 = FL.getCurrentPosition() - 5300;
                     NumberOfRevs4 = FL.getCurrentPosition() - 4200;
-                    NumberOfRevs3 = FL.getCurrentPosition() - 5450;
+                    NumberOfRevs3 = FL.getCurrentPosition() - 5950;
                     step = step + 0.1;
                 }
             }
@@ -692,10 +692,10 @@ public class Main_Autonomous_Blue_Center extends OpMode {
 //                    BR.setPower(0.05);
 //                    BL.setPower(-.05);
 //                }
-            while(yaw < 0.5 || yaw > 2){
+            while(yaw < 1 || yaw > 2.5){
                 angles = imu.getAngles();
                 yaw = angles[0];
-                if(yaw < 0.5){
+                if(yaw < 1){
 
                     //turn clockwise
                     FR.setPower(-.2);
@@ -704,7 +704,7 @@ public class Main_Autonomous_Blue_Center extends OpMode {
                     BL.setPower(.2);
 
                 }
-                else if(yaw > 2){
+                else if(yaw > 2.5){
 
                     //turn counter-clockwise
                     FR.setPower(0.2);
@@ -713,7 +713,7 @@ public class Main_Autonomous_Blue_Center extends OpMode {
                     BL.setPower(-.2);
 
                 }
-                if(yaw > 0.5 && yaw < 2){
+                if(yaw > 1 && yaw < 2.5){
                     break;
                 }
             }
@@ -811,11 +811,11 @@ public class Main_Autonomous_Blue_Center extends OpMode {
         }
         //set revs3
         if(step == 6){
-            while(RightDistanceTime > 1125 || RightDistanceTime == 0) {
+            while(RightDistanceTime > 1200 || RightDistanceTime == 0) {
                 CollectDistanceTime = true;
 
                 //Reading the Sonar Sensors
-                if(RightDistanceTime < 1125 && !(RightDistanceTime == 0)){
+                if(RightDistanceTime < 1200 && !(RightDistanceTime == 0)){
                     break;
                 }
                 //Reading Distance in MicroSeconds
@@ -1095,14 +1095,14 @@ public class Main_Autonomous_Blue_Center extends OpMode {
                 Push5 = true;
             }
 
-            if(FL.getCurrentPosition() > NumberOfRevs3 + 600) {
+            if(FL.getCurrentPosition() > NumberOfRevs3 + 450) {
                 BL.setPower(-1);
                 BR.setPower(-1);
                 FR.setPower(-1);
                 FL.setPower(-1);
             }
 
-            else if(FL.getCurrentPosition() > NumberOfRevs3 + 400)
+            else if(FL.getCurrentPosition() > NumberOfRevs3 + 250)
             {
 
                 BL.setPower(-.65);

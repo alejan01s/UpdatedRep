@@ -60,8 +60,8 @@ public class Basic_Autonomous_Ramp_Red extends DefinerClass {
         int Angle2 = 90;
         int Angle3 = 180;
         int FinalAngle = 55;
-        int NumberOfRevs1 = -800;
-        int NumberOfRevs2 = -1850;
+        int NumberOfRevs1 = -700;
+        int NumberOfRevs2 = -1750;
         int NumberOfRevsFinal = -3500;
         waitForStart();
         while(opModeIsActive()){

@@ -315,7 +315,7 @@ public class Main_Autonomous_Red_Center extends OpMode {
     double PusherSleep = 0;
 
     //REVOLUTION VARIABLES
-    int NumberOfRevs1 = -170;
+    int NumberOfRevs1 = -140;
     int NumberOfRevs2 = -900;
 
     //ANGLE VARIABLES
@@ -1221,7 +1221,7 @@ public class Main_Autonomous_Red_Center extends OpMode {
             step = step + .25;
         }
         if(step == 11.5){
-            while(LeftDistanceTime > 1160 || LeftDistanceTime == 0) {
+            while(LeftDistanceTime > 1220 || LeftDistanceTime == 0) {
                 CollectDistanceTime = true;
 
                 //Reading the Sonar Sensors
@@ -1276,7 +1276,7 @@ public class Main_Autonomous_Red_Center extends OpMode {
                     LeftDistanceTime = (LeftDistanceTimeHDouble * 256) + LeftDistanceTimeLDouble;
                 }
 
-                if(LeftDistanceTime < 1160 && LeftDistanceTime != 0)
+                if(LeftDistanceTime < 1220 && LeftDistanceTime != 0)
                 {
 
                     break;

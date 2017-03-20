@@ -317,7 +317,7 @@ public class Main_Autonomous_Blue_Center extends OpMode {
     double PusherSleep = 0;
 
     //REVOLUTION VARIABLES
-    int NumberOfRevs1 = -220;
+    int NumberOfRevs1 = -70;
     int NumberOfRevs2 = -120;
 
     //ANGLE VARIABLES
@@ -545,18 +545,18 @@ public class Main_Autonomous_Blue_Center extends OpMode {
         }
         if(step == 2.5){
             if(!shoot) {
-                if (FL.getCurrentPosition() < NumberOfRevs3) {
-                    BL.setPower(.35);
-                    BR.setPower(.35);
-                    FR.setPower(.35);
-                    FL.setPower(.35);
-                } else {
-                    BL.setPower(0);
-                    BR.setPower(0);
-                    FR.setPower(0);
-                    FL.setPower(0);
+//                if (FL.getCurrentPosition() < NumberOfRevs3) {
+//                    BL.setPower(.35);
+//                    BR.setPower(.35);
+//                    FR.setPower(.35);
+//                    FL.setPower(.35);
+//                } else {
+//                    BL.setPower(0);
+//                    BR.setPower(0);
+//                    FR.setPower(0);
+//                    FL.setPower(0);
                     step = step + 0.5;
-                }
+                //}
             }
         }
 
@@ -577,8 +577,8 @@ public class Main_Autonomous_Blue_Center extends OpMode {
                     FR.setPower(0);
                     FL.setPower(0);
 
-                    NumberOfRevs5 = FL.getCurrentPosition() - 5300;
-                    NumberOfRevs4 = FL.getCurrentPosition() - 4200;
+                    NumberOfRevs5 = FL.getCurrentPosition() - 5500;
+                    NumberOfRevs4 = FL.getCurrentPosition() - 4800;
                     NumberOfRevs3 = FL.getCurrentPosition() - 5950;
                     step = step + 0.1;
                 }
@@ -1075,7 +1075,7 @@ public class Main_Autonomous_Blue_Center extends OpMode {
         //set next rev3
         if(step == 9){
 
-            NumberOfRevs3 = FL.getCurrentPosition() - 1000;
+            NumberOfRevs3 = FL.getCurrentPosition() - 1300;
             if(OppPushSequence)
             {
 
@@ -1095,14 +1095,25 @@ public class Main_Autonomous_Blue_Center extends OpMode {
                 Push5 = true;
             }
 
-            if(FL.getCurrentPosition() > NumberOfRevs3 + 450) {
+            if(FL.getCurrentPosition() > (NumberOfRevs3/10
+             ))
+            {
+
+                BL.setPower(-.5);
+                BR.setPower(-.5);
+                FR.setPower(-.5);
+                FL.setPower(-.5);
+
+            }
+
+            else if(FL.getCurrentPosition() > NumberOfRevs3 + 550) {
                 BL.setPower(-1);
                 BR.setPower(-1);
                 FR.setPower(-1);
                 FL.setPower(-1);
             }
 
-            else if(FL.getCurrentPosition() > NumberOfRevs3 + 250)
+            else if(FL.getCurrentPosition() > NumberOfRevs3 + 200)
             {
 
                 BL.setPower(-.65);
@@ -1216,14 +1227,90 @@ public class Main_Autonomous_Blue_Center extends OpMode {
 
             turnCompleted = false;
             RightDistanceTime = 10000;
-            step = step + .25;
+            NumberOfRevs3 = FL.getCurrentPosition() + 25;
+            step = step + .2;
+        }
+        if(step == 11.45){
+            CollectDistanceTime = true;
+            //Reading Distance in MicroSeconds
+            if (CollectDistanceTime == true)//Once the CollectDistanceTime boolean is switched on, the robot takes a snapshot of the distance in MicroSeconds
+            {
+
+                StartRead = true;
+
+
+                CollectDistanceTime = false;
+            }
+
+            if (StartRead == true) {
+                //Command the Sonars to Take a Snapshot
+                SonarRReader.write8(0, 82);
+                SonarLReader.write8(0, 82);
+
+                LookForValue = true;
+                StartRead = false;
+
+            }
+
+            if (LookForValue == true) {
+
+                //Save the High and Low Bytes for the Right Sensor from the Last Snapshot
+                RightDistanceTimeH = SonarRReader.read(0x02, 1);
+                RightDistanceTimeL = SonarRReader.read(0x03, 1);
+                RightDistanceTimeHDouble = RightDistanceTimeH[0] & 0xFF;
+                RightDistanceTimeLDouble = RightDistanceTimeL[0] & 0xFF;
+
+                //Save the High and Low Bytes for the Left Sensor from the Last Snapshot
+                LeftDistanceTimeH = SonarLReader.read(0x02, 1);
+                LeftDistanceTimeL = SonarLReader.read(0x03, 1);
+                LeftDistanceTimeHDouble = LeftDistanceTimeH[0] & 0xFF;
+                LeftDistanceTimeLDouble = LeftDistanceTimeL[0] & 0xFF;
+
+            }
+
+            if (((RightDistanceTimeHDouble != 255) && (RightDistanceTimeLDouble != 255)) || ((LeftDistanceTimeHDouble != 255) && (LeftDistanceTimeLDouble != 255))) {
+
+                LookForValue = false;
+                RecordValue = true;
+
+            }
+
+            if (RecordValue == true) {
+
+                //Save Full Distance Values from Last Snapshot
+                RightDistanceTime = (RightDistanceTimeHDouble * 256) + RightDistanceTimeLDouble;
+                LeftDistanceTime = (LeftDistanceTimeHDouble * 256) + LeftDistanceTimeLDouble;
+            }
+
+            if(RightDistanceTime < 800){
+                if(FL.getCurrentPosition() < NumberOfRevs3) {
+                    FR.setPower(-.1);
+                    BR.setPower(.1);
+                    FL.setPower(.1);
+                    BL.setPower(-.1);
+                }
+                else{
+                    FR.setPower(0);
+                    BR.setPower(0);
+                    FL.setPower(0);
+                    BL.setPower(0);
+                    step = step + .025;
+                }
+            }
+            else {
+                step = step + .025;
+            }
+        }
+        if(step == 11.475){
+            RightDistanceTime = 10000;
+            step = step + .025;
         }
         if(step == 11.5){
-            while(RightDistanceTime > 1175 || RightDistanceTime == 0) {
+            while(RightDistanceTime > 1210 || RightDistanceTime == 0) {
                 CollectDistanceTime = true;
 
                 //Reading the Sonar Sensors
-                if(RightDistanceTime < 1175 && !(RightDistanceTime == 0)){
+                if(RightDistanceTime < 1210 && !(RightDistanceTime == 0)){
                     break;
                 }
                 //Reading Distance in MicroSeconds
@@ -1318,7 +1405,7 @@ public class Main_Autonomous_Blue_Center extends OpMode {
         //set possible rev3
         if(step == 14){
             NumberOfRevs3 = FL.getCurrentPosition() - 392;
-            NumberOfRevs4 = FL.getCurrentPosition() - 25;
+            NumberOfRevs4 = FL.getCurrentPosition() - 65;
             step=step+1;
         }
 
@@ -1652,7 +1739,7 @@ public class Main_Autonomous_Blue_Center extends OpMode {
         {
 
             Push2Complete = false;
-            PusherSleep = System.currentTimeMillis() + 2000;
+            PusherSleep = System.currentTimeMillis() + 1600;
             buttonPusher2.setPosition(0.4);
             Push2Go = true;
             Push2 = false;
@@ -1699,7 +1786,7 @@ public class Main_Autonomous_Blue_Center extends OpMode {
         {
 
             Push3Complete = false;
-            PusherSleep = System.currentTimeMillis() + 1800;
+            PusherSleep = System.currentTimeMillis() + 1200;
             buttonPusher2.setPosition(0.6);
             Push3Go = true;
             Push3 = false;
@@ -1826,7 +1913,7 @@ public class Main_Autonomous_Blue_Center extends OpMode {
         {
 
             Push6Complete = false;
-            PusherSleep = System.currentTimeMillis() + 2000;
+            PusherSleep = System.currentTimeMillis() + 1500;
             buttonPusher2.setPosition(0.6);
             Push6Go = true;
             Push6 = false;

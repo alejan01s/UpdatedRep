@@ -316,8 +316,8 @@ I2C GLOBAL VARIABLES
     double PusherSleep = 0;
 
     //REVOLUTION VARIABLES
-    int NumberOfRevs1 = -170;
-    int NumberOfRevs2 = -70;
+    int NumberOfRevs1 = -70;
+    int NumberOfRevs2 = -150;
 
     //ANGLE VARIABLES
     double Angle1 = 190;
@@ -544,18 +544,18 @@ I2C GLOBAL VARIABLES
         }
         if(step == 2.5){
             if(!shoot) {
-                if (FL.getCurrentPosition() < NumberOfRevs3) {
-                    BL.setPower(.35);
-                    BR.setPower(.35);
-                    FR.setPower(.35);
-                    FL.setPower(.35);
-                } else {
-                    BL.setPower(0);
-                    BR.setPower(0);
-                    FR.setPower(0);
-                    FL.setPower(0);
+//                if (FL.getCurrentPosition() < NumberOfRevs3) {
+//                    BL.setPower(.35);
+//                    BR.setPower(.35);
+//                    FR.setPower(.35);
+//                    FL.setPower(.35);
+//                } else {
+//                    BL.setPower(0);
+//                    BR.setPower(0);
+//                    FR.setPower(0);
+//                    FL.setPower(0);
                     step = step + 0.5;
-                }
+                //}
             }
         }
         //Move forward
@@ -1072,11 +1072,11 @@ I2C GLOBAL VARIABLES
         //set next rev3
         if(step == 9){
 
-            NumberOfRevs3 = FL.getCurrentPosition() - 2000;
+            NumberOfRevs3 = FL.getCurrentPosition() - 1300;
             if(OppPushSequence)
             {
 
-                NumberOfRevs3 = FL.getCurrentPosition() - 1000;
+                NumberOfRevs3 = FL.getCurrentPosition() - 575;
 
             }
             step=step+1;
@@ -1092,35 +1092,39 @@ I2C GLOBAL VARIABLES
                 Push5 = true;
             }
 
-                if (FL.getCurrentPosition() > NumberOfRevs3 + 150 && FL.getCurrentPosition() < NumberOfRevs3 + 75) {
-                    BL.setPower(-1);
-                    BR.setPower(-1);
-                    FR.setPower(-1);
-                    FL.setPower(-1);
-                } else if (FL.getCurrentPosition() > NumberOfRevs3 + 75 && FL.getCurrentPosition() < NumberOfRevs3) {
+            if(FL.getCurrentPosition() > NumberOfRevs3 + 700) {
+                BL.setPower(-1);
+                BR.setPower(-1);
+                FR.setPower(-1);
+                FL.setPower(-1);
+            }
 
-                    BL.setPower(-1);
-                    BR.setPower(-1);
-                    FR.setPower(-1);
-                    FL.setPower(-1);
+            else if(FL.getCurrentPosition() > NumberOfRevs3 + 300)
+            {
 
-                } else if (FL.getCurrentPosition() > NumberOfRevs3) {
+                BL.setPower(-.65);
+                BR.setPower(-.65);
+                FR.setPower(-.65);
+                FL.setPower(-.65);
 
-                    BL.setPower(-.5);
-                    BR.setPower(-.5);
-                    FR.setPower(-.5);
-                    FL.setPower(-.5);
+            }
 
-                }
+            else if(FL.getCurrentPosition() > NumberOfRevs3)
+            {
 
-                else {
+                BL.setPower(-.35);
+                BR.setPower(-.35);
+                FR.setPower(-.35);
+                FL.setPower(-.35);
 
-                    BL.setPower(0);
-                    BR.setPower(0);
-                    FR.setPower(0);
-                    FL.setPower(0);
-                    step = step + 1;
-                }
+            }
+            else {
+                BL.setPower(0);
+                BR.setPower(0);
+                FR.setPower(0);
+                FL.setPower(0);
+                step=step+1;
+            }
 
         }
 
@@ -1312,7 +1316,7 @@ I2C GLOBAL VARIABLES
         //set possible rev3
         if(step == 14){
             NumberOfRevs3 = FL.getCurrentPosition() - 392;
-            NumberOfRevs4 = FL.getCurrentPosition() - 25;
+            NumberOfRevs4 = FL.getCurrentPosition() - 35;
             step=step+1;
         }
 

@@ -40,6 +40,8 @@ public class strafeSonarTest extends LinearOpMode {
 
         sonar = new sonarReader("SonarL", "SonarR", hardwareMap);
 
+        sleep(200);
+
         while (!isStarted()) {
             telemetry.addData("Status", "Initialization Complete");
             telemetry.update();
@@ -61,17 +63,18 @@ public class strafeSonarTest extends LinearOpMode {
             }
 
             if(runLeft){
-                if (distanceLeft > 1000 || distanceLeft == 0) {
-                    FR.setPower(-.4);
-                    BR.setPower(.4);
-                    FL.setPower(.4);
-                    BL.setPower(-.4);
-                } else {
+                if (distanceLeft > 40 || distanceLeft == 0) {
+                    FR.setPower(-.17);
+                    BR.setPower(.17);
+                    FL.setPower(.17);
+                    BL.setPower(-.17);
+                }
+                else {
                     FR.setPower(0);
                     BR.setPower(0);
                     FL.setPower(0);
                     BL.setPower(0);
-                    telemetry.addLine("Successfully reached left distance and stopped.");
+                    telemetry.addData("Successfully reached left distance and stopped.", "");
                     runLeft = false;
                 }
             }
@@ -81,22 +84,21 @@ public class strafeSonarTest extends LinearOpMode {
             }
 
             if(runRight){
-                if (distanceRight > 1000 || distanceRight == 0) {
-                    FR.setPower(.4);
-                    BR.setPower(-.4);
-                    FL.setPower(-.4);
-                    BL.setPower(.4);
-                } else {
+                if (distanceRight > 40 || distanceRight == 0) {
+                    FR.setPower(.17);
+                    BR.setPower(-.17);
+                    FL.setPower(-.17);
+                    BL.setPower(.17);
+                }
+                else {
                     FR.setPower(0);
                     BR.setPower(0);
                     FL.setPower(0);
                     BL.setPower(0);
-                    telemetry.addLine("Successfully reached right distance and stopped.");
+                    telemetry.addData("Successfully reached right distance and stopped.", "");
                     runRight = false;
                 }
             }
-
-            idle();
         }
     }
 }

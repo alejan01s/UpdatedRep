@@ -37,9 +37,14 @@ public class sonarReader {
     double LeftDistanceTimeHDouble;
     double LeftDistanceTimeLDouble;
 
+    byte[] RightDistanceCM;
+    byte[] LeftDistanceCM;
+    double RightCM;
+    double LeftCM;
+
     //Switches for Taking Distance Snapshots
     boolean CollectDistanceTime = false;
-
+    boolean CollectDistanceCM = false;
     //Defining Sleep Method Variables
     double Sleep = 0;
     double WakeUpTime;
@@ -62,33 +67,33 @@ public class sonarReader {
 
         //Right Sonar Sensor Configuration
         SonarRReader.write8(1, 3);//Gain
-        SonarRReader.write8(2, 6);//Range
+        SonarRReader.write8(2, 10);//Range
 
         //Left Sonar Sensor Configuration
         SonarLReader.write8(1, 3);//Gain
-        SonarLReader.write8(2, 6);//Range
+        SonarLReader.write8(2, 10);//Range
 
 
         //Putting the Robot to Sleep for 200ms to Ensure Settings are Written to Sonar Sensors
-        Sleep = 200;
-
-        if (SleepEnable == 0) {
-
-            WakeUpTime = System.currentTimeMillis() + Sleep;
-
-            while (System.currentTimeMillis() < WakeUpTime) {
-
-            }
-
-            Sleep = 0;
-
-            SleepEnable = 1;
-
-        }
+//        Sleep = 200;
+//
+//        if (SleepEnable == 0) {
+//
+//            WakeUpTime = System.currentTimeMillis() + Sleep;
+//
+//            while (System.currentTimeMillis() < WakeUpTime) {
+//
+//            }
+//
+//            Sleep = 0;
+//
+//            SleepEnable = 1;
+//
+//        }
     }
 
-    public double[] getDistances () {
-
+    public double[] getDistances () throws InterruptedException {
+        /*
         boolean StartRead = false;
         boolean LookForValue = false;
         boolean RecordValue = false;
@@ -156,7 +161,93 @@ public class sonarReader {
             RightDistanceTime = (RightDistanceTimeHDouble * 256) + RightDistanceTimeLDouble;
             LeftDistanceTime = (LeftDistanceTimeHDouble * 256) + LeftDistanceTimeLDouble;
         }
+        Thread.sleep(65);
 
         return new double[]{LeftDistanceTime, RightDistanceTime};
+        */
+
+        CollectDistanceCM = true;
+
+        if (CollectDistanceCM == true)//Once the CollectDistanceCM boolean is switched on, the robot takes a snapshot of the distance in Centimeters
+        {
+
+            //Command the Sonars to Take a Snapshot
+            SonarRReader.write8(0, 81);
+            SonarLReader.write8(0, 81);
+
+            //Put the Robot to Sleep for 75ms to Allow Sonars to Finish
+            Sleep = 75;
+
+            if (SleepEnable == 1) {
+
+                WakeUpTime = System.currentTimeMillis() + Sleep;
+
+                while (System.currentTimeMillis() < WakeUpTime) {
+
+                }
+
+                Sleep = 0;
+
+                SleepEnable = 2;
+
+            }
+
+            //Save Values
+            RightDistanceCM = SonarRReader.read(0x03, 1);
+            LeftDistanceCM = SonarLReader.read(0x03, 1);
+
+            RightCM = RightDistanceCM[0] & 0xFF;
+            LeftCM = LeftDistanceCM[0] & 0xFF;
+
+            //Turn Off Distance in Inches Method
+            CollectDistanceCM = false;
+
+        }
+
+        //CollectDistanceTime = true;
+
+        if (CollectDistanceTime == true)//Once the CollectDistanceTime boolean is switched on, the robot takes a snapshot of the distance in MicroSeconds
+        {
+
+            //Command the Sonars to Take a Snapshot
+            SonarRReader.write8(0, 82);
+            SonarLReader.write8(0, 82);
+
+            //Put the Robot to Sleep for 75ms to Allow Sonars to Finish
+            Sleep = 75;
+
+            if (SleepEnable == 1) {
+
+                WakeUpTime = System.currentTimeMillis() + Sleep;
+
+                while (System.currentTimeMillis() < WakeUpTime) {
+
+                }
+
+                Sleep = 0;
+
+                SleepEnable = 2;
+
+            }
+
+            //Save the High and Low Bytes for the Right Sensor from the Last Snapshot
+            RightDistanceTimeH = SonarRReader.read(0x02, 1);
+            RightDistanceTimeL = SonarRReader.read(0x03, 1);
+
+            //Save the High and Low Bytes for the Left Sensor from the Last Snapshot
+            LeftDistanceTimeH = SonarLReader.read(0x02, 1);
+            LeftDistanceTimeL = SonarLReader.read(0x03, 1);
+
+            //Save Full Distance Values from Last Snapshot
+            RightDistanceTime = ((RightDistanceTimeH[0] & 0xFF) * 256) + (RightDistanceTimeL[0] & 0xFF);
+            LeftDistanceTime = ((LeftDistanceTimeH[0] & 0xFF) * 256) + (LeftDistanceTimeL[0] & 0xFF);
+
+            //Turn Off Distance in MicroSeconds Method
+            CollectDistanceTime = false;
+
+        }
+
+        return new double[]{LeftCM, RightCM};
+        //return new double[]{LeftDistanceTime, RightDistanceTime};
     }
 }

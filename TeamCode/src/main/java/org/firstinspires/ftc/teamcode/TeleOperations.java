@@ -79,6 +79,7 @@ public class TeleOperations extends LinearOpMode {
     public boolean runReloaderDown;
 
     public boolean setEncoder = true;
+    public boolean armMoving = false;
 
     public void initializeRobot() throws InterruptedException {
 
@@ -404,19 +405,19 @@ public class TeleOperations extends LinearOpMode {
             } else {
                 x2 = 0;
             }
-            if(gamepad1.left_bumper){
-                FR.setPower((y + x2 + x)/slowMode);
-                BR.setPower((-y + x2 + x)/slowMode);
-                FL.setPower((-y - x2 + x)/slowMode);
-                BL.setPower((y - x2 + x)/slowMode);
+            if(!armMoving) {
+                if (gamepad1.left_bumper) {
+                    FR.setPower((y + x2 + x) / slowMode);
+                    BR.setPower((-y + x2 + x) / slowMode);
+                    FL.setPower((-y - x2 + x) / slowMode);
+                    BL.setPower((y - x2 + x) / slowMode);
+                } else {
+                    FR.setPower(y + x2 + x);
+                    BR.setPower(-y + x2 + x);
+                    FL.setPower(-y - x2 + x);
+                    BL.setPower(y - x2 + x);
+                }
             }
-            else {
-                FR.setPower(y + x2 + x);
-                BR.setPower(-y + x2 + x);
-                FL.setPower(-y - x2 + x);
-                BL.setPower(y - x2 + x);
-            }
-
             /*
 
             CODE FOR ROLLERS
@@ -922,11 +923,19 @@ public class TeleOperations extends LinearOpMode {
                     BallG1.setPosition(.015);
                     BallG2.setPosition(.984);
                 } else if (rollerState == 1) {
+                    armMoving = true;
                     BallG1.setPosition(0.25);
                     BallG2.setPosition(0.75);
+                    if(BallG1.getPosition() == .25 || BallG2.getPosition() == .75){
+                        armMoving = false;
+                    }
                 } else if (rollerState == 2) {
+                    armMoving = true;
                     BallG1.setPosition(.35);
                     BallG2.setPosition(.64);
+                    if(BallG1.getPosition() == .35 || BallG2.getPosition() == .64){
+                        armMoving = false;
+                    }
                 }
             }
 

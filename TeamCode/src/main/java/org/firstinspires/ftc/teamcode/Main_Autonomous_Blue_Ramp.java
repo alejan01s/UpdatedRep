@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -14,7 +15,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by trevo on 03/14/2017.
  */
-
+@Disabled
 @Autonomous(name = "Primary Blue Ramp", group = "Sensor")
 
 public class Main_Autonomous_Blue_Ramp extends OpMode {

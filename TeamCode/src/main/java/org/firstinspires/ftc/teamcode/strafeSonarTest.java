@@ -64,10 +64,10 @@ public class strafeSonarTest extends LinearOpMode {
 
             if(runLeft){
                 if (distanceLeft > 40 || distanceLeft == 0) {
-                    FR.setPower(-.17);
-                    BR.setPower(.17);
-                    FL.setPower(.17);
-                    BL.setPower(-.17);
+                    FR.setPower(-.25);
+                    BR.setPower(.25);
+                    FL.setPower(.25);
+                    BL.setPower(-.25);
                 }
                 else {
                     FR.setPower(0);
@@ -85,10 +85,10 @@ public class strafeSonarTest extends LinearOpMode {
 
             if(runRight){
                 if (distanceRight > 40 || distanceRight == 0) {
-                    FR.setPower(.17);
-                    BR.setPower(-.17);
-                    FL.setPower(-.17);
-                    BL.setPower(.17);
+                    FR.setPower(.25);
+                    BR.setPower(-.25);
+                    FL.setPower(-.25);
+                    BL.setPower(.25);
                 }
                 else {
                     FR.setPower(0);

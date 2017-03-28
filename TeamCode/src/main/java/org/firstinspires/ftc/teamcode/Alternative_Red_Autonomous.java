@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by aleja on 3/26/2017.
  */
 
+@Autonomous (name = "Red Alternative Autonomous", group = "Sensors")
 public class Alternative_Red_Autonomous extends LinearOpMode {
 
     //MOTORS
@@ -633,8 +635,6 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
             }
             if (step == 18) {
 
-                buttonPusher2.setPosition(0.6);
-
                 if (OppPushSequence) {
 
                     while (yaw < 90 || yaw > 94) {
@@ -726,29 +726,6 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
 
             if (step == 20) {
 
-
-//            while(FR.getCurrentPosition() < NumberOfRevs1) {
-//
-//                FR.getCurrentPosition();
-//
-//                if (FR.getCurrentPosition() < NumberOfRevs1) {
-//                    FL.setPower(0.3);
-//                    BL.setPower(0.3);
-//                    FR.setPower(0.3);
-//                    BR.setPower(0.3);
-//
-//                } else {
-//
-//                    break;
-//
-//                }
-//            }
-//
-//            FL.setPower(0);
-//            BL.setPower(0);
-//            FR.setPower(0);
-//            BR.setPower(0);
-
                 step = step + 1;
 
             }
@@ -817,8 +794,6 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
             }
 
             if (step == 24) {
-
-                buttonPusher2.setPosition(0.6);
 
                 while (FR.getCurrentPosition() > NumberOfRevs1) {
 

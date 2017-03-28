@@ -67,11 +67,11 @@ public class sonarReader {
 
         //Right Sonar Sensor Configuration
         SonarRReader.write8(1, 3);//Gain
-        SonarRReader.write8(2, 10);//Range
+        SonarRReader.write8(2, 24);//Range
 
         //Left Sonar Sensor Configuration
         SonarLReader.write8(1, 3);//Gain
-        SonarLReader.write8(2, 10);//Range
+        SonarLReader.write8(2, 24);//Range
 
 
         //Putting the Robot to Sleep for 200ms to Ensure Settings are Written to Sonar Sensors

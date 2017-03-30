@@ -390,7 +390,7 @@ public class TeleOperations extends LinearOpMode {
             double y;
             double x2;
 
-            final double slowMode = 6;
+            final double slowMode = 4;
             final double joystickThreshold = 10;
 
             if (Math.abs(100 * gamepad1.left_stick_x) > joystickThreshold) {

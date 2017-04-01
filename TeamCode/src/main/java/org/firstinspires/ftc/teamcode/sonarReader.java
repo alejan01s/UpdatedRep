@@ -39,6 +39,8 @@ public class sonarReader {
 
     byte[] RightDistanceCM;
     byte[] LeftDistanceCM;
+    double RightCMTemp;
+    double LeftCMTemp;
     double RightCM;
     double LeftCM;
 
@@ -52,6 +54,9 @@ public class sonarReader {
 
     I2cDeviceSynch SonarRReader;
     I2cDeviceSynch SonarLReader;
+
+    boolean leftCollected = false;
+    boolean rightCollected = false;
 
     public void initializeSonar () {
 
@@ -67,11 +72,11 @@ public class sonarReader {
 
         //Right Sonar Sensor Configuration
         SonarRReader.write8(1, 3);//Gain
-        SonarRReader.write8(2, 24);//Range
+        SonarRReader.write8(2, 12);//Range
 
         //Left Sonar Sensor Configuration
         SonarLReader.write8(1, 3);//Gain
-        SonarLReader.write8(2, 24);//Range
+        SonarLReader.write8(2, 12);//Range
 
 
         //Putting the Robot to Sleep for 200ms to Ensure Settings are Written to Sonar Sensors
@@ -92,7 +97,18 @@ public class sonarReader {
 //        }
     }
 
-    public double[] getDistances () throws InterruptedException {
+    public void resetRange (int rangeL, int rangeR) {
+        //Right Sonar Sensor Configuration
+        SonarRReader.write8(1, 3);//Gain
+        SonarRReader.write8(2, rangeR);//Range
+
+        //Left Sonar Sensor Configuration
+        SonarLReader.write8(1, 3);//Gain
+        SonarLReader.write8(2, rangeL);//Range
+
+    }
+
+    public double[] getDistances (String sensor) throws InterruptedException {
         /*
         boolean StartRead = false;
         boolean LookForValue = false;
@@ -172,35 +188,45 @@ public class sonarReader {
         {
 
             //Command the Sonars to Take a Snapshot
-            SonarRReader.write8(0, 81);
-            SonarLReader.write8(0, 81);
-
-            //Put the Robot to Sleep for 75ms to Allow Sonars to Finish
-            Sleep = 75;
-
-            if (SleepEnable == 1) {
-
-                WakeUpTime = System.currentTimeMillis() + Sleep;
-
-                while (System.currentTimeMillis() < WakeUpTime) {
-
-                }
-
-                Sleep = 0;
-
-                SleepEnable = 2;
-
+            if(sensor == "right") {
+                SonarRReader.write8(0, 81);
+            }
+            else {
+                SonarLReader.write8(0, 81);
             }
 
             //Save Values
-            RightDistanceCM = SonarRReader.read(0x03, 1);
-            LeftDistanceCM = SonarLReader.read(0x03, 1);
+            if(sensor == "right") {
+                RightDistanceCM = SonarRReader.read(0x03, 1);
+            }
+            else {
+                LeftDistanceCM = SonarLReader.read(0x03, 1);
+            }
+            if(sensor == "right") {
+                RightCMTemp = RightDistanceCM[0] & 0xFF;
+            }
+            else {
+                LeftCMTemp = LeftDistanceCM[0] & 0xFF;
+            }
 
-            RightCM = RightDistanceCM[0] & 0xFF;
-            LeftCM = LeftDistanceCM[0] & 0xFF;
+            if(sensor == "right") {
+                if (RightCMTemp != 255) {
 
-            //Turn Off Distance in Inches Method
-            CollectDistanceCM = false;
+                    RightCM = RightCMTemp;
+
+                    CollectDistanceCM = false;
+
+                }
+            }
+            else {
+                if (LeftCMTemp != 255) {
+
+                    LeftCM = LeftCMTemp;
+
+                    CollectDistanceCM = false;
+
+                }
+            }
 
         }
 

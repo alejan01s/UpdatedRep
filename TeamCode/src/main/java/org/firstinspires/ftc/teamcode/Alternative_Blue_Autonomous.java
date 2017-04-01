@@ -146,7 +146,7 @@ public class Alternative_Blue_Autonomous extends LinearOpMode {
             }
 
             //SONAR
-            double[] distances = sonar.getDistances();
+            double[] distances = sonar.getDistances("right");
 
             double distanceLeft = distances[0];
             double distanceRight = distances[1];

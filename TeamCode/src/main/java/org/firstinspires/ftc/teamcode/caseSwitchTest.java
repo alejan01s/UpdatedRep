@@ -136,7 +136,7 @@ public class caseSwitchTest extends LinearOpMode {
             }
 
             //SONAR
-            double[] distances = sonar.getDistances();
+            double[] distances = sonar.getDistances("left");
 
             double distanceLeft = distances[0];
             double distanceRight = distances[1];

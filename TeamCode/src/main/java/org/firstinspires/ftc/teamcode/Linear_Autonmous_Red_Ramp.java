@@ -110,7 +110,7 @@ public class Linear_Autonmous_Red_Ramp extends LinearOpMode{
 
         //INITIAL REVOLUTION VARIABLES
         int NumberOfRevs1 = -325;
-        int NumberOfRevs2 = -400;
+        int NumberOfRevs2 = -500;
 
         imuTest imu = new imuTest("imu", hardwareMap);
         sonarReader sonar = new sonarReader("SonarL", "SonarR", hardwareMap);
@@ -178,6 +178,7 @@ public class Linear_Autonmous_Red_Ramp extends LinearOpMode{
                     shoot1 = true;
                 }
                 if(fired) {
+                    NumberOfRevs2 = FL.getCurrentPosition() - 75;
                     step++;
                 }
             }
@@ -365,7 +366,7 @@ public class Linear_Autonmous_Red_Ramp extends LinearOpMode{
 
             //set possible rev3
             if(step == 7){
-                NumberOfRevs4 = FL.getCurrentPosition() - 45;
+                NumberOfRevs4 = FL.getCurrentPosition() - 55;
                 NumberOfRevs3 = FL.getCurrentPosition() - 400;
                 step=step+1;
             }
@@ -680,10 +681,10 @@ public class Linear_Autonmous_Red_Ramp extends LinearOpMode{
                 }
             }
             else{
-                buttonPusher.setPosition(.6);
-                sleep(750);
-                buttonPusher.setPosition(.4);
-                sleep(750);
+                buttonPusher.setPosition(1);
+                sleep(1000);
+                buttonPusher.setPosition(0);
+                sleep(1000);
                 buttonInit = false;
                 push = false;
                 pushed = true;

@@ -111,7 +111,7 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
         double step = 0;
 
         //INITIAL REVOLUTION VARIABLES
-        int NumberOfRevs1 = -200;
+        int NumberOfRevs1 = -300;
         int NumberOfRevs2 = -200;
 
         imuTest imu = new imuTest("imu", hardwareMap);
@@ -193,16 +193,16 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
             if (step == 3) {
                 if (!shoot) {
                     if (FL.getCurrentPosition() < NumberOfRevs2) {
-                        BL.setPower(.1);
-                        BR.setPower(.1);
-                        FR.setPower(.1);
-                        FL.setPower(.1);
+                        BL.setPower(.25);
+                        BR.setPower(.25);
+                        FR.setPower(.25);
+                        FL.setPower(.25);
                     } else {
                         BL.setPower(0);
                         BR.setPower(0);
                         FR.setPower(0);
                         FL.setPower(0);
-                        NumberOfRevs3 = FL.getCurrentPosition() - 500;
+                        NumberOfRevs3 = FL.getCurrentPosition() - 1200;
                         step = step + .25;
                     }
                 }
@@ -323,7 +323,7 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
             }
             if (step == 6.5) {
                 NumberOfRevs3 = FL.getCurrentPosition() + 35;
-                step = step + .25;
+                step = step + .5;
             }
             if (step == 6.75) {
                 if (FL.getCurrentPosition() < NumberOfRevs3) {
@@ -341,12 +341,12 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
             }
             if (step == 7) {
                 numRevs = FL.getCurrentPosition() - 50;
-                NumberOfRevs3 = FL.getCurrentPosition() - 365;
+                NumberOfRevs3 = FL.getCurrentPosition() - 400;
                 step = step + 1;
             }
             if (step == 8) {
                 isRed = colorRRed >= 1 && colorRRed > colorRBlue ? true : false;
-                isBlue = colorRBlue >= 2 && colorRBlue > colorRRed ? true : false;
+                isBlue = colorRBlue >= 1 && colorRBlue > colorRRed ? true : false;
                 if (isBlue && !OppPushSequence) {
                     //push button
                     nearPush = true;
@@ -356,10 +356,10 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
                 }
                 if (nearPush) {
                     if (FL.getCurrentPosition() > numRevs) {
-                        BL.setPower(-.25);
-                        BR.setPower(-.25);
-                        FR.setPower(-.25);
-                        FL.setPower(-.25);
+                        BL.setPower(-.1);
+                        BR.setPower(-.1);
+                        FR.setPower(-.1);
+                        FL.setPower(-.1);
                     } else {
                         BL.setPower(0);
                         BR.setPower(0);
@@ -375,10 +375,10 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
                     }
                 } else if (OppPushSequence) {
                     if (FL.getCurrentPosition() > NumberOfRevs3) {
-                        BL.setPower(-.25);
-                        BR.setPower(-.25);
-                        FR.setPower(-.25);
-                        FL.setPower(-.25);
+                        BL.setPower(-.1);
+                        BR.setPower(-.1);
+                        FR.setPower(-.1);
+                        FL.setPower(-.1);
                     } else {
                         BL.setPower(0);
                         BR.setPower(0);
@@ -497,7 +497,7 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
             }
             if (step == 14) {
 
-                numRevs = FL.getCurrentPosition() - 50;
+                numRevs = FL.getCurrentPosition() - 25;
                 NumberOfRevs3 = FL.getCurrentPosition() - 340;
                 step = step + 1;
             }
@@ -512,29 +512,29 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
                     OppPushSequence = true;
                 }
                 if (nearPush) {
-                    if (FL.getCurrentPosition() > numRevs) {
-                        BL.setPower(-.25);
-                        BR.setPower(-.25);
-                        FR.setPower(-.25);
-                        FL.setPower(-.25);
-                    } else {
-                        BL.setPower(0);
-                        BR.setPower(0);
-                        FR.setPower(0);
-                        FL.setPower(0);
+//                    if (FL.getCurrentPosition() > numRevs) {
+//                        BL.setPower(-.1);
+//                        BR.setPower(-.1);
+//                        FR.setPower(-.1);
+//                        FL.setPower(-.1);
+//                    } else {
+//                        BL.setPower(0);
+//                        BR.setPower(0);
+//                        FR.setPower(0);
+//                        FL.setPower(0);
                         sleep(5);
                         if (!pushed) {
                             push = true;
                         } else {
                             step = step + .5;
                         }
-                    }
+                    //}
                 } else if (OppPushSequence) {
                     if (FL.getCurrentPosition() > NumberOfRevs3) {
-                        BL.setPower(-.25);
-                        BR.setPower(-.25);
-                        FR.setPower(-.25);
-                        FL.setPower(-.25);
+                        BL.setPower(-.1);
+                        BR.setPower(-.1);
+                        FR.setPower(-.1);
+                        FL.setPower(-.1);
                     } else {
                         BL.setPower(0);
                         BR.setPower(0);
@@ -563,29 +563,45 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
                 step = step + .25;
             }
             if (step == 15.75) {
-                NumberOfRevs3 = FL.getCurrentPosition() - 500;
+                NumberOfRevs3 = FL.getCurrentPosition() - 450;
                 if (OppPushSequence) {
-                    NumberOfRevs3 = FL.getCurrentPosition() - 450;
+                    NumberOfRevs3 = FL.getCurrentPosition() - 400;
                 }
                 step = step + .25;
             }
             if (step == 16) {
-                if (FL.getCurrentPosition() > NumberOfRevs3) {
-                    BL.setPower(-.5);
-                    BR.setPower(.5);
-                    FR.setPower(.5);
-                    FL.setPower(-.5);
-                } else {
-                    BL.setPower(0);
-                    BR.setPower(0);
-                    FR.setPower(0);
-                    FL.setPower(0);
-                    step = step + 1;
+//                if (FL.getCurrentPosition() > NumberOfRevs3) {
+//                    BL.setPower(-.5);
+//                    BR.setPower(.5);
+//                    FR.setPower(.5);
+//                    FL.setPower(-.5);
+//                } else {
+//                    BL.setPower(0);
+//                    BR.setPower(0);
+//                    FR.setPower(0);
+//                    FL.setPower(0);
+//                    step = step + 1;
+//                }
+                while(yaw > -29){
+                    angles = imu.getAngles();
+                    yaw = angles[0];
+
+                    FR.setPower(.4);
+                    FL.setPower(-.4);
+                    BR.setPower(.4);
+                    BL.setPower(-.4);
+
                 }
+                FR.setPower(0);
+                FL.setPower(0);
+                BR.setPower(0);
+                BL.setPower(0);
+
+                step = step + 1;
             }
             if (step == 17) {
                 turnCompleted = false;
-                NumberOfRevs3 = FL.getCurrentPosition() + 3500;
+                NumberOfRevs3 = FL.getCurrentPosition() + 3250;
                 step = step + 1;
             }
             if (step == 18) {
@@ -610,10 +626,10 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
                     buttonInit = true;
                 }
             } else {
-                buttonPusher2.setPosition(.4);
-                sleep(750);
-                buttonPusher2.setPosition(.6);
-                sleep(750);
+                buttonPusher2.setPosition(0);
+                sleep(1000);
+                buttonPusher2.setPosition(1);
+                sleep(1000);
                 buttonInit = false;
                 push = false;
                 pushed = true;

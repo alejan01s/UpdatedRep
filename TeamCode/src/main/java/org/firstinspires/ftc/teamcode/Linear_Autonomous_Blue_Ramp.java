@@ -111,8 +111,8 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
         double step = 0;
 
         //INITIAL REVOLUTION VARIABLES
-        int NumberOfRevs1 = -190;
-        int NumberOfRevs2 = -100;
+        int NumberOfRevs1 = -300;
+        int NumberOfRevs2 = -200;
 
         imuTest imu = new imuTest("imu", hardwareMap);
         sonarReader sonar = new sonarReader("SonarL", "SonarR", hardwareMap);
@@ -193,35 +193,48 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
             if (step == 3) {
                 if (!shoot) {
                     if (FL.getCurrentPosition() < NumberOfRevs2) {
-                        BL.setPower(.1);
-                        BR.setPower(.1);
-                        FR.setPower(.1);
-                        FL.setPower(.1);
+                        BL.setPower(.25);
+                        BR.setPower(.25);
+                        FR.setPower(.25);
+                        FL.setPower(.25);
                     } else {
                         BL.setPower(0);
                         BR.setPower(0);
                         FR.setPower(0);
                         FL.setPower(0);
-                        step = step + .5;
+                        NumberOfRevs3 = FL.getCurrentPosition() - 1200;
+                        step = step + .25;
                     }
                 }
             }
-            if (step == 3.5) {
-                if (distanceRight > 45 || distanceLeft == 0) {
+            if(step == 3.25){
+                if (FL.getCurrentPosition() > NumberOfRevs3) {
                     FR.setPower(0);
                     BR.setPower(-1);
                     FL.setPower(-1);
+                    BL.setPower(0);
+                } else {
+                    step = step + .25;
+                }
+            }
+            if (step == 3.5) {
+                if (distanceRight > 50 || distanceRight == 0) {
+                    sonar.getDistances("right");
+                    distanceRight = distances[1];
+                    FR.setPower(0);
+                    BR.setPower(-.75);
+                    FL.setPower(-.75);
                     BL.setPower(0);
                 } else {
                     FR.setPower(0);
                     BR.setPower(0);
                     FL.setPower(0);
                     BL.setPower(0);
+                    sonar.resetRange(6, 6);
                     step = step + .5;
                 }
             }
             if (step == 4) {
-                sleep(250);
 //                if (yaw > -1.5 && yaw < 0) {
 //                    //has reached angle therefore end loop
 //                    FR.setPower(0);
@@ -242,29 +255,29 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
 //                    BR.setPower(0.2);
 //                    BL.setPower(-.2);
 //                }
-                while(yaw < -1 || yaw > 0){
+                while(yaw < 2 || yaw > 3){
                     angles = imu.getAngles();
                     yaw = angles[0];
-                    if(yaw < -1){
+                    if(yaw < 2){
 
                         //turn clockwise
-                        FR.setPower(-.15);
-                        FL.setPower(.15);
-                        BR.setPower(-.15);
-                        BL.setPower(.15);
+                        FR.setPower(-.1);
+                        FL.setPower(.1);
+                        BR.setPower(-.1);
+                        BL.setPower(.1);
 
                     }
-                    else if(yaw > 0){
+                    else if(yaw > 3){
 
                         //turn counter-clockwise
-                        FR.setPower(0.2);
-                        FL.setPower(-.2);
-                        BR.setPower(0.2);
-                        BL.setPower(-.2);
+                        FR.setPower(0.1);
+                        FL.setPower(-.1);
+                        BR.setPower(0.1);
+                        BL.setPower(-.1);
 
                     }
 
-                    if(yaw > -1 && yaw < 0)
+                    if(yaw > 2 && yaw < 3)
                     {
 
                         break;
@@ -277,10 +290,25 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                 FL.setPower(0);
                 BR.setPower(0);
                 BL.setPower(0);
-                step=step+2;
+                step=step+1;
+            }
+            if(step == 5){
+                while(bottomOD.getRawLightDetected() < .04){
+                    FR.setPower(.2);
+                    FL.setPower(.2);
+                    BR.setPower(.2);
+                    BL.setPower(.2);
+                }
+                FR.setPower(0);
+                FL.setPower(0);
+                BR.setPower(0);
+                BL.setPower(0);
+                step = step + 1;
             }
             if (step == 6) {
-                if (distanceRight > 20 || distanceLeft == 0) {
+                if (distanceRight > 15 || distanceRight == 0) {
+                    sonar.getDistances("right");
+                    distanceRight = distances[1];
                     FR.setPower(.1);
                     BR.setPower(-.1);
                     FL.setPower(-.1);
@@ -295,7 +323,7 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
             }
             if (step == 6.5) {
                 NumberOfRevs3 = FL.getCurrentPosition() + 35;
-                step = step + .25;
+                step = step + .5;
             }
             if (step == 6.75) {
                 if (FL.getCurrentPosition() < NumberOfRevs3) {
@@ -308,17 +336,17 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                     BR.setPower(0);
                     FR.setPower(0);
                     FL.setPower(0);
-                    step = step + .25;
+                    step = step + .5;
                 }
             }
             if (step == 7) {
                 numRevs = FL.getCurrentPosition() - 50;
-                NumberOfRevs3 = FL.getCurrentPosition() - 365;
+                NumberOfRevs3 = FL.getCurrentPosition() - 400;
                 step = step + 1;
             }
             if (step == 8) {
                 isRed = colorRRed >= 1 && colorRRed > colorRBlue ? true : false;
-                isBlue = colorRBlue >= 2 && colorRBlue > colorRRed ? true : false;
+                isBlue = colorRBlue >= 1 && colorRBlue > colorRRed ? true : false;
                 if (isBlue && !OppPushSequence) {
                     //push button
                     nearPush = true;
@@ -328,10 +356,10 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                 }
                 if (nearPush) {
                     if (FL.getCurrentPosition() > numRevs) {
-                        BL.setPower(-.25);
-                        BR.setPower(-.25);
-                        FR.setPower(-.25);
-                        FL.setPower(-.25);
+                        BL.setPower(-.1);
+                        BR.setPower(-.1);
+                        FR.setPower(-.1);
+                        FL.setPower(-.1);
                     } else {
                         BL.setPower(0);
                         BR.setPower(0);
@@ -347,10 +375,10 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                     }
                 } else if (OppPushSequence) {
                     if (FL.getCurrentPosition() > NumberOfRevs3) {
-                        BL.setPower(-.25);
-                        BR.setPower(-.25);
-                        FR.setPower(-.25);
-                        FL.setPower(-.25);
+                        BL.setPower(-.1);
+                        BR.setPower(-.1);
+                        FR.setPower(-.1);
+                        FL.setPower(-.1);
                     } else {
                         BL.setPower(0);
                         BR.setPower(0);
@@ -371,23 +399,75 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                 nearPush = false;
                 OppPushSequence = false;
                 NumberOfRevs3 = FL.getCurrentPosition() - 500;
-                step = step + 2;
+                step = step + 1;
+            }
+            if(step == 10){
+                if(FL.getCurrentPosition() > NumberOfRevs3) {
+                    BL.setPower(-.75);
+                    BR.setPower(-.75);
+                    FR.setPower(-.75);
+                    FL.setPower(-.75);
+                }
+                else {
+                    step=step+1;
+                }
             }
             if (step == 11) {
-                while (bottomOD.getRawLightDetected() < .08) {
-                    FL.setPower(-.4);
-                    BL.setPower(-.4);
-                    FR.setPower(-.4);
-                    BR.setPower(-.4);
+                while (bottomOD.getRawLightDetected() < .04) {
+                    FL.setPower(-.5);
+                    BL.setPower(-.5);
+                    FR.setPower(-.5);
+                    BR.setPower(-.5);
                 }
                 FL.setPower(0);
                 BL.setPower(0);
                 FR.setPower(0);
                 BR.setPower(0);
                 step = step + .5;
+
             }
             if (step == 11.5) {
-                if (distanceRight > 20 || distanceLeft == 0) {
+                while(yaw < 2 || yaw > 3){
+                    angles = imu.getAngles();
+                    yaw = angles[0];
+                    if(yaw < 2){
+
+                        //turn clockwise
+                        FR.setPower(-.1);
+                        FL.setPower(.1);
+                        BR.setPower(-.1);
+                        BL.setPower(.1);
+
+                    }
+                    else if(yaw > 3){
+
+                        //turn counter-clockwise
+                        FR.setPower(0.1);
+                        FL.setPower(-.1);
+                        BR.setPower(0.1);
+                        BL.setPower(-.1);
+
+                    }
+
+                    if(yaw > 2 && yaw < 3)
+                    {
+
+                        break;
+
+                    }
+                }
+
+                //has reached angle therefore end loop
+                FR.setPower(0);
+                FL.setPower(0);
+                BR.setPower(0);
+                BL.setPower(0);
+                step=step+.5;
+            }
+            if (step == 12) {
+                if (distanceRight > 15 || distanceRight == 0) {
+                    sonar.getDistances("right");
+                    distanceRight = distances[1];
                     FR.setPower(.1);
                     BR.setPower(-.1);
                     FL.setPower(-.1);
@@ -397,12 +477,9 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                     BR.setPower(0);
                     FL.setPower(0);
                     BL.setPower(0);
-                    step = step + .5;
+                    NumberOfRevs3 = FL.getCurrentPosition() - 25;
+                    step = step + 1;
                 }
-            }
-            if (step == 12) {
-                NumberOfRevs3 = FL.getCurrentPosition() - 25;
-                step = step + 1;
             }
             if (step == 13) {
                 if (FL.getCurrentPosition() > NumberOfRevs3) {
@@ -426,7 +503,7 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
             }
             if (step == 15) {
                 isRed = colorRRed >= 1 && colorRRed > colorRBlue ? true : false;
-                isBlue = colorRBlue >= 2 && colorRBlue > colorRRed ? true : false;
+                isBlue = colorRBlue >= 1 && colorRBlue > colorRRed ? true : false;
                 if (isBlue && !OppPushSequence) {
                     //push button
                     nearPush = true;
@@ -435,29 +512,29 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                     OppPushSequence = true;
                 }
                 if (nearPush) {
-                    if (FL.getCurrentPosition() > numRevs) {
-                        BL.setPower(-.25);
-                        BR.setPower(-.25);
-                        FR.setPower(-.25);
-                        FL.setPower(-.25);
-                    } else {
-                        BL.setPower(0);
-                        BR.setPower(0);
-                        FR.setPower(0);
-                        FL.setPower(0);
+//                    if (FL.getCurrentPosition() > numRevs) {
+//                        BL.setPower(-.1);
+//                        BR.setPower(-.1);
+//                        FR.setPower(-.1);
+//                        FL.setPower(-.1);
+//                    } else {
+//                        BL.setPower(0);
+//                        BR.setPower(0);
+//                        FR.setPower(0);
+//                        FL.setPower(0);
                         sleep(5);
                         if (!pushed) {
                             push = true;
                         } else {
                             step = step + .5;
-                        }
+                        //}
                     }
                 } else if (OppPushSequence) {
                     if (FL.getCurrentPosition() > NumberOfRevs3) {
-                        BL.setPower(-.25);
-                        BR.setPower(-.25);
-                        FR.setPower(-.25);
-                        FL.setPower(-.25);
+                        BL.setPower(-.1);
+                        BR.setPower(-.1);
+                        FR.setPower(-.1);
+                        FL.setPower(-.1);
                     } else {
                         BL.setPower(0);
                         BR.setPower(0);
@@ -473,20 +550,23 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                     }
                 }
             }
-            if(step == 15.5){
+            if (step == 15.5) {
                 FR.setPower(-.5);
                 BR.setPower(.5);
                 FL.setPower(.5);
                 BL.setPower(-.5);
-                Thread.sleep(625);
+                Thread.sleep(500);
                 FR.setPower(0);
                 BR.setPower(0);
                 FL.setPower(0);
                 BL.setPower(0);
-                step=step+.25;
+                step = step + .25;
             }
-            if(step == 15.75){
-                NumberOfRevs3 = FL.getCurrentPosition() - 465;
+            if (step == 15.75) {
+                NumberOfRevs3 = FL.getCurrentPosition() - 500;
+                if (OppPushSequence) {
+                    NumberOfRevs3 = FL.getCurrentPosition() - 450;
+                }
                 step = step + 1.25;
             }
             if(step == 16){
@@ -505,7 +585,7 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
             }
             if(step == 17){
                 turnCompleted = false;
-                NumberOfRevs3 = FL.getCurrentPosition() + 6000;
+                NumberOfRevs3 = FL.getCurrentPosition() + 10050;
                 step=step+1;
             }
             if(step == 18){
@@ -531,10 +611,10 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                     buttonInit = true;
                 }
             } else {
-                buttonPusher.setPosition(.6);
-                sleep(1800);
-                buttonPusher.setPosition(.4);
-                sleep(1800);
+                buttonPusher2.setPosition(0);
+                sleep(1000);
+                buttonPusher2.setPosition(1);
+                sleep(1000);
                 buttonInit = false;
                 push = false;
                 pushed = true;

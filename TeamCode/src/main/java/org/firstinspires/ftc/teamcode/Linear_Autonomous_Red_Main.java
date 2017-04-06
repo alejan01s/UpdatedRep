@@ -271,6 +271,7 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
                 FL.setPower(0);
                 BR.setPower(0);
                 BL.setPower(0);
+                sleep(5);
                 step=step+.5;
             }
             if(step == 5.5){
@@ -368,7 +369,7 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
             //set possible rev3
             if(step == 7){
                 NumberOfRevs4 = FL.getCurrentPosition() - 55;
-                NumberOfRevs3 = FL.getCurrentPosition() - 400;
+                NumberOfRevs3 = FL.getCurrentPosition() - 450;
                 step=step+1;
             }
 
@@ -549,7 +550,7 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
                     FL.setPower(0);
                     BL.setPower(0);
                     NumberOfRevs3 = FL.getCurrentPosition() - 390;
-                    NumberOfRevs5 = FL.getCurrentPosition() - 55;
+                    NumberOfRevs5 = FL.getCurrentPosition() - 75;
                     step = step + 1;
                 }
             }

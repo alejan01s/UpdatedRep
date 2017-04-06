@@ -111,7 +111,7 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
         double step = 0;
 
         //INITIAL REVOLUTION VARIABLES
-        int NumberOfRevs1 = -300;
+        int NumberOfRevs1 = -350;
         int NumberOfRevs2 = -200;
 
         imuTest imu = new imuTest("imu", hardwareMap);
@@ -340,8 +340,8 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
                 }
             }
             if (step == 7) {
-                numRevs = FL.getCurrentPosition() - 50;
-                NumberOfRevs3 = FL.getCurrentPosition() - 400;
+                numRevs = FL.getCurrentPosition() - 70;
+                NumberOfRevs3 = FL.getCurrentPosition() - 425;
                 step = step + 1;
             }
             if (step == 8) {
@@ -462,9 +462,29 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
                 FL.setPower(0);
                 BR.setPower(0);
                 BL.setPower(0);
+                NumberOfRevs3 = FL.getCurrentPosition() + 10;
                 step=step+.5;
             }
             if (step == 12) {
+                if (FL.getCurrentPosition() < NumberOfRevs3) {
+                    BL.setPower(.1);
+                    BR.setPower(.1);
+                    FR.setPower(.1);
+                    FL.setPower(.1);
+                } else {
+                    BL.setPower(0);
+                    BR.setPower(0);
+                    FR.setPower(0);
+                    FL.setPower(0);
+                    step = step + 1;
+                }
+            }
+            if (step == 13) {
+                numRevs = FL.getCurrentPosition() - 25;
+                NumberOfRevs3 = FL.getCurrentPosition() - 340;
+                step = step + 1;
+            }
+            if (step == 14) {
                 if (distanceRight > 15 || distanceRight == 0) {
                     sonar.getDistances("right");
                     distanceRight = distances[1];
@@ -477,33 +497,14 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
                     BR.setPower(0);
                     FL.setPower(0);
                     BL.setPower(0);
-                    NumberOfRevs3 = FL.getCurrentPosition() - 25;
+                    numRevs = FL.getCurrentPosition() - 25;
+                    NumberOfRevs3 = FL.getCurrentPosition() - 340;
                     step = step + 1;
                 }
-            }
-            if (step == 13) {
-                if (FL.getCurrentPosition() > NumberOfRevs3) {
-                    BL.setPower(-.25);
-                    BR.setPower(-.25);
-                    FR.setPower(-.25);
-                    FL.setPower(-.25);
-                } else {
-                    BL.setPower(0);
-                    BR.setPower(0);
-                    FR.setPower(0);
-                    FL.setPower(0);
-                    step = step + 1;
-                }
-            }
-            if (step == 14) {
-
-                numRevs = FL.getCurrentPosition() - 25;
-                NumberOfRevs3 = FL.getCurrentPosition() - 340;
-                step = step + 1;
             }
             if (step == 15) {
                 isRed = colorRRed >= 1 && colorRRed > colorRBlue ? true : false;
-                isBlue = colorRBlue >= 2 && colorRBlue > colorRRed ? true : false;
+                isBlue = colorRBlue >= 1 && colorRBlue > colorRRed ? true : false;
                 if (isBlue && !OppPushSequence) {
                     //push button
                     nearPush = true;

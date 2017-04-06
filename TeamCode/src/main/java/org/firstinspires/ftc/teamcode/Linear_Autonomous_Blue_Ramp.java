@@ -111,7 +111,7 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
         double step = 0;
 
         //INITIAL REVOLUTION VARIABLES
-        int NumberOfRevs1 = -300;
+        int NumberOfRevs1 = -350;
         int NumberOfRevs2 = -200;
 
         imuTest imu = new imuTest("imu", hardwareMap);
@@ -202,7 +202,7 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                         BR.setPower(0);
                         FR.setPower(0);
                         FL.setPower(0);
-                        NumberOfRevs3 = FL.getCurrentPosition() - 1200;
+                        NumberOfRevs3 = FL.getCurrentPosition() - 1400;
                         step = step + .25;
                     }
                 }
@@ -306,7 +306,7 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                 step = step + 1;
             }
             if (step == 6) {
-                if (distanceRight > 15 || distanceRight == 0) {
+                if (distanceRight > 17 || distanceRight == 0) {
                     sonar.getDistances("right");
                     distanceRight = distances[1];
                     FR.setPower(.1);
@@ -336,12 +336,12 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                     BR.setPower(0);
                     FR.setPower(0);
                     FL.setPower(0);
-                    step = step + .5;
+                    step = step + .25;
                 }
             }
             if (step == 7) {
-                numRevs = FL.getCurrentPosition() - 50;
-                NumberOfRevs3 = FL.getCurrentPosition() - 400;
+                numRevs = FL.getCurrentPosition() - 70;
+                NumberOfRevs3 = FL.getCurrentPosition() - 425;
                 step = step + 1;
             }
             if (step == 8) {
@@ -462,10 +462,30 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                 FL.setPower(0);
                 BR.setPower(0);
                 BL.setPower(0);
+                NumberOfRevs3 = FL.getCurrentPosition() + 10;
                 step=step+.5;
             }
             if (step == 12) {
-                if (distanceRight > 15 || distanceRight == 0) {
+                if (FL.getCurrentPosition() < NumberOfRevs3) {
+                    BL.setPower(.1);
+                    BR.setPower(.1);
+                    FR.setPower(.1);
+                    FL.setPower(.1);
+                } else {
+                    BL.setPower(0);
+                    BR.setPower(0);
+                    FR.setPower(0);
+                    FL.setPower(0);
+                    step = step + 1;
+                }
+            }
+            if (step == 13) {
+                numRevs = FL.getCurrentPosition() - 35;
+                NumberOfRevs3 = FL.getCurrentPosition() - 340;
+                step = step + 1;
+            }
+            if (step == 14) {
+                if (distanceRight > 17 || distanceRight == 0) {
                     sonar.getDistances("right");
                     distanceRight = distances[1];
                     FR.setPower(.1);
@@ -477,29 +497,10 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                     BR.setPower(0);
                     FL.setPower(0);
                     BL.setPower(0);
-                    NumberOfRevs3 = FL.getCurrentPosition() - 25;
+                    numRevs = FL.getCurrentPosition() - 25;
+                    NumberOfRevs3 = FL.getCurrentPosition() - 340;
                     step = step + 1;
                 }
-            }
-            if (step == 13) {
-                if (FL.getCurrentPosition() > NumberOfRevs3) {
-                    BL.setPower(-.25);
-                    BR.setPower(-.25);
-                    FR.setPower(-.25);
-                    FL.setPower(-.25);
-                } else {
-                    BL.setPower(0);
-                    BR.setPower(0);
-                    FR.setPower(0);
-                    FL.setPower(0);
-                    step = step + 1;
-                }
-            }
-            if (step == 14) {
-
-                numRevs = FL.getCurrentPosition() - 50;
-                NumberOfRevs3 = FL.getCurrentPosition() - 340;
-                step = step + 1;
             }
             if (step == 15) {
                 isRed = colorRRed >= 1 && colorRRed > colorRBlue ? true : false;
@@ -522,13 +523,13 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
 //                        BR.setPower(0);
 //                        FR.setPower(0);
 //                        FL.setPower(0);
-                        sleep(5);
-                        if (!pushed) {
-                            push = true;
-                        } else {
-                            step = step + .5;
-                        //}
+                    sleep(5);
+                    if (!pushed) {
+                        push = true;
+                    } else {
+                        step = step + .5;
                     }
+                    //}
                 } else if (OppPushSequence) {
                     if (FL.getCurrentPosition() > NumberOfRevs3) {
                         BL.setPower(-.1);
@@ -555,7 +556,7 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                 BR.setPower(.5);
                 FL.setPower(.5);
                 BL.setPower(-.5);
-                Thread.sleep(500);
+                Thread.sleep(700);
                 FR.setPower(0);
                 BR.setPower(0);
                 FL.setPower(0);
@@ -590,10 +591,10 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
             }
             if(step == 18){
                 if(FL.getCurrentPosition() < NumberOfRevs3) {
-                    BL.setPower(.75);
-                    BR.setPower(.75);
-                    FR.setPower(.75);
-                    FL.setPower(.75);
+                    BL.setPower(1);
+                    BR.setPower(1);
+                    FR.setPower(1);
+                    FL.setPower(1);
                 }
                 else{
                     BL.setPower(0);
@@ -612,9 +613,9 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                 }
             } else {
                 buttonPusher2.setPosition(0);
-                sleep(1000);
+                sleep(1250);
                 buttonPusher2.setPosition(1);
-                sleep(1000);
+                sleep(1250);
                 buttonInit = false;
                 push = false;
                 pushed = true;

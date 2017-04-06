@@ -126,6 +126,7 @@ public class Alternative_Blue_Autonomous extends LinearOpMode {
         colorSensorReader color = new colorSensorReader("ColorL", "ColorR", hardwareMap);
 
         while(!isStarted()){
+
             telemetry.addData("Status: ","Initialization Complete.");
             telemetry.update();
         }

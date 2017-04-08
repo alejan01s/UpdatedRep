@@ -111,7 +111,7 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
         double step = 0;
 
         //INITIAL REVOLUTION VARIABLES
-        int NumberOfRevs1 = -350;
+        int NumberOfRevs1 = -400;
         int NumberOfRevs2 = -200;
 
         imuTest imu = new imuTest("imu", hardwareMap);
@@ -202,7 +202,7 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                         BR.setPower(0);
                         FR.setPower(0);
                         FL.setPower(0);
-                        NumberOfRevs3 = FL.getCurrentPosition() - 1400;
+                        NumberOfRevs3 = FL.getCurrentPosition() - 2000;
                         step = step + .25;
                     }
                 }
@@ -294,10 +294,10 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
             }
             if(step == 5){
                 while(bottomOD.getRawLightDetected() < .04){
-                    FR.setPower(.2);
-                    FL.setPower(.2);
-                    BR.setPower(.2);
-                    BL.setPower(.2);
+                    FR.setPower(.25);
+                    FL.setPower(.25);
+                    BR.setPower(.25);
+                    BL.setPower(.25);
                 }
                 FR.setPower(0);
                 FL.setPower(0);
@@ -340,7 +340,7 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                 }
             }
             if (step == 7) {
-                numRevs = FL.getCurrentPosition() - 70;
+                numRevs = FL.getCurrentPosition() - 90;
                 NumberOfRevs3 = FL.getCurrentPosition() - 425;
                 step = step + 1;
             }
@@ -403,10 +403,10 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
             }
             if(step == 10){
                 if(FL.getCurrentPosition() > NumberOfRevs3) {
-                    BL.setPower(-.75);
-                    BR.setPower(-.75);
-                    FR.setPower(-.75);
-                    FL.setPower(-.75);
+                    BL.setPower(-1);
+                    BR.setPower(-1);
+                    FR.setPower(-1);
+                    FL.setPower(-1);
                 }
                 else {
                     step=step+1;
@@ -497,7 +497,7 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                     BR.setPower(0);
                     FL.setPower(0);
                     BL.setPower(0);
-                    numRevs = FL.getCurrentPosition() - 25;
+                    numRevs = FL.getCurrentPosition() - 70;
                     NumberOfRevs3 = FL.getCurrentPosition() - 340;
                     step = step + 1;
                 }
@@ -542,11 +542,24 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                         FR.setPower(0);
                         FL.setPower(0);
                         sleep(5);
-                        if (!pushed) {
-                            push = true;
-                        }
-                        if (pushed) {
-                            step = step + .5;
+                        if (distanceRight > 17 || distanceRight == 0) {
+                            sonar.getDistances("right");
+                            distanceRight = distances[1];
+                            FR.setPower(.1);
+                            BR.setPower(-.1);
+                            FL.setPower(-.1);
+                            BL.setPower(.1);
+                        } else {
+                            FR.setPower(0);
+                            BR.setPower(0);
+                            FL.setPower(0);
+                            BL.setPower(0);
+                            if (!pushed) {
+                                push = true;
+                            }
+                            if (pushed) {
+                                step = step + .5;
+                            }
                         }
                     }
                 }
@@ -586,7 +599,7 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
             }
             if(step == 17){
                 turnCompleted = false;
-                NumberOfRevs3 = FL.getCurrentPosition() + 10050;
+                NumberOfRevs3 = FL.getCurrentPosition() + 7900;
                 step=step+1;
             }
             if(step == 18){

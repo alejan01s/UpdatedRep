@@ -67,7 +67,7 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
     public boolean firstCollect = true;
 
     public boolean launcherCorrect = true;
-
+    public boolean shot = false;
     //REVOLUTION VARIABLES
     int NumberOfRevs1 = 400;
     int NumberOfRevs2 = -900;
@@ -126,6 +126,11 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
         colorSensorReader color = new colorSensorReader("ColorL", "ColorR", hardwareMap);
 
         while (!isStarted()) {
+            double[] angles = imu.getAngles();
+            double yaw = angles[0];
+
+            telemetry.addLine("Aim for 23 degrees");
+            telemetry.addData("Angle: ", yaw);
             telemetry.addData("Status: ", "Initialization Complete.");
             telemetry.update();
         }
@@ -148,7 +153,7 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
             }
 
             //SONAR
-            double[] distances = sonar.getDistances("left");
+            double[] distances = sonar.getDistances("right");
 
             double distanceLeft = distances[0];
             double distanceRight = distances[1];
@@ -173,62 +178,10 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
             NumberOfRevs1 = 300;
 
             if (step == 0) {
-
-                while (FR.getCurrentPosition() < NumberOfRevs1) {
-
-                    FR.getCurrentPosition();
-
-                    FL.setPower(0.6);
-                    BL.setPower(0.6);
-                    FR.setPower(0.6);
-                    BR.setPower(0.6);
-
-                }
-
-                FL.setPower(0);
-                BL.setPower(0);
-                FR.setPower(0);
-                BR.setPower(0);
-
                 step = step + 1;
-
-
             }
 
             if (step == 1) {
-
-                while (yaw < 16 || yaw > 19) {
-
-                    angles = imu.getAngles();
-                    yaw = angles[0];
-
-                    if (yaw > 16 && yaw < 19) {
-
-                        break;
-
-                    } else if (yaw < 16) {
-
-                        FL.setPower(0.4);
-                        BL.setPower(0.4);
-                        FR.setPower(-0.4);
-                        BR.setPower(-0.4);
-
-                    } else if (yaw > 19) {
-
-                        FL.setPower(-0.4);
-                        BL.setPower(-0.4);
-                        FR.setPower(0.4);
-                        BR.setPower(0.4);
-
-                    }
-
-                }
-
-                FL.setPower(0);
-                BL.setPower(0);
-                FR.setPower(0);
-                BR.setPower(0);
-
                 NumberOfRevs2 = FR.getCurrentPosition() + 4750;
 
                 step = step + 1;
@@ -260,47 +213,49 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
             }
 
             if (step == 3) {
-
-                while (yaw > 6 || yaw < 5) {
-
+                while(yaw < 0 || yaw > 1){
                     angles = imu.getAngles();
                     yaw = angles[0];
+                    if(yaw < 0){
 
-                    if (yaw < 5 && yaw > 6) {
+                        //turn clockwise
+                        FR.setPower(-.1);
+                        FL.setPower(.1);
+                        BR.setPower(-.1);
+                        BL.setPower(.1);
 
-                        break;
+                    }
+                    else if(yaw > 1){
 
-                    } else if (yaw > 6) {
-
-                        FL.setPower(-0.2);
-                        BL.setPower(-0.2);
-                        FR.setPower(0.2);
-                        BR.setPower(0.2);
-
-                    } else if (yaw < 5) {
-
-                        FL.setPower(0.2);
-                        BL.setPower(0.2);
-                        FR.setPower(-0.2);
-                        BR.setPower(-0.2);
+                        //turn counter-clockwise
+                        FR.setPower(0.1);
+                        FL.setPower(-.1);
+                        BR.setPower(0.1);
+                        BL.setPower(-.1);
 
                     }
 
+                    if(yaw > 0 && yaw < 1)
+                    {
+
+                        break;
+
+                    }
                 }
 
-                telemetry.update();
 
-                FL.setPower(0);
-                BL.setPower(0);
+                //has reached angle therefore end loop
                 FR.setPower(0);
+                FL.setPower(0);
                 BR.setPower(0);
-
-                step = step + 1;
+                BL.setPower(0);
+                sleep(5);
+                step=step+1;
 
             }
 
             if (step == 4) {
-                if(distanceLeft > 40) {
+                if(distanceRight > 17) {
                     FR.setPower(-.2);
                     BR.setPower(.2);
                     FL.setPower(.2);
@@ -360,8 +315,8 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
             }
 
             if (step == 8) {
-                isRed = colorLRed >= 1 && colorLRed > colorLBlue ? true : false;
-                isBlue = colorLBlue >= 1 && colorLBlue > colorLRed ? true : false;
+                isRed = colorRRed >= 1 && colorRRed > colorRBlue ? true : false;
+                isBlue = colorRBlue >= 1 && colorRBlue > colorRRed ? true : false;
 
                 if(isRed && !OppPushSequence){
                     //push button
@@ -504,11 +459,12 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
             }
 
             if (step == 12) {
+                pushed = false;
                 step = step + 1;
             }
 
             if (step == 13) {
-                if(distanceLeft > 40) {
+                if(distanceRight > 17) {
                     FR.setPower(-.2);
                     BR.setPower(.2);
                     FL.setPower(.2);
@@ -571,8 +527,8 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
             }
 
             if (step == 17) {
-                isRed = colorLRed >= 1 && colorLRed > colorLBlue ? true : false;
-                isBlue = colorLBlue >= 1 && colorLBlue > colorLRed ? true : false;
+                isRed = colorRRed >= 1 && colorRRed > colorRBlue ? true : false;
+                isBlue = colorRBlue >= 1 && colorRBlue > colorRRed ? true : false;
 
                 if(isRed && !OppPushSequence){
                     //push button
@@ -710,7 +666,7 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                     FR.setPower(0);
                     BR.setPower(0);
 
-                    NumberOfRevs1 = FR.getCurrentPosition() + 75;
+                    NumberOfRevs1 = FR.getCurrentPosition() - 75;
 
                     step = step + 1;
 
@@ -732,8 +688,6 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
 
             //LAUNCH BALLS
             if (step == 21) {
-
-                buttonPusher2.setPosition(0.5);
                 if (!fired) {
                     shoot1 = true;
                 }
@@ -742,16 +696,14 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                 }
             }
             if (step == 22) {
-
-                fired = false;
-
-                if (!shoot) {
-                    shoot = true;
+                sleep(250);
+                shoot = true;
+                if(shot){
                     step = step + 1;
                 }
             }
 
-            if (step == 23 && fired == true) {
+            if (step == 23 && !shoot) {
 
                 while (yaw > 16 || yaw < 12) {
 
@@ -830,15 +782,15 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
 
         //BUTTON PUSHER
             if (!buttonInit) {
-                buttonPusher.setPosition(.5);
+                buttonPusher2.setPosition(.5);
                 if (push) {
                     buttonInit = true;
                 }
             } else {
-                buttonPusher.setPosition(.6);
-                sleep(1800);
-                buttonPusher.setPosition(.4);
-                sleep(1800);
+                buttonPusher2.setPosition(0);
+                sleep(1200);
+                buttonPusher2.setPosition(1);
+                sleep(1200);
                 buttonInit = false;
                 push = false;
                 pushed = true;
@@ -873,23 +825,13 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                     LauncherM.setPower(.1);
                 } else {
                     LauncherM.setPower(0);
+                    fired = true;
+                    shot = true;
                     shoot = false;
                     EncoderClicks = EncoderClicks + 2510;
                 }
             }
-            if (!shoot && !shoot1) {
-                if (LauncherM.getCurrentPosition() > (EncoderClicks - 2510)) {
 
-                    LauncherM.setPower(-0.07);
-
-                }
-
-                if (LauncherM.getCurrentPosition() < (EncoderClicks - 2510)) {
-
-                    LauncherM.setPower(0.07);
-
-                }
-            }
             //TELEMETRY DATA
             telemetry.addData("Encoder Clicks: ", LauncherM.getCurrentPosition());
 

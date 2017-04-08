@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
@@ -10,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by aleja on 3/26/2017.
  */
 
+@Disabled
 @Autonomous(name = "case test", group = "Sensors")
 public class caseSwitchTest extends LinearOpMode {
 

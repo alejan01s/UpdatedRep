@@ -61,6 +61,8 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
 
     public double numRevs;
 
+    public boolean encoderTurn = false;
+
     public void initializeRobot() {
 
         //DRIVE-TRAIN MOTORS
@@ -480,7 +482,7 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
                 }
             }
             if (step == 13) {
-                numRevs = FL.getCurrentPosition() - 25;
+                numRevs = FL.getCurrentPosition() - 45;
                 NumberOfRevs3 = FL.getCurrentPosition() - 340;
                 step = step + 1;
             }
@@ -561,6 +563,9 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
                 BR.setPower(0);
                 FL.setPower(0);
                 BL.setPower(0);
+                if(yaw == 0){
+                    encoderTurn = true;
+                }
                 step = step + .25;
             }
             if (step == 15.75) {
@@ -571,34 +576,39 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
                 step = step + .25;
             }
             if (step == 16) {
-//                if (FL.getCurrentPosition() > NumberOfRevs3) {
-//                    BL.setPower(-.5);
-//                    BR.setPower(.5);
-//                    FR.setPower(.5);
-//                    FL.setPower(-.5);
-//                } else {
-//                    BL.setPower(0);
-//                    BR.setPower(0);
-//                    FR.setPower(0);
-//                    FL.setPower(0);
-//                    step = step + 1;
-//                }
-                while(yaw > -29){
-                    angles = imu.getAngles();
-                    yaw = angles[0];
+                if(!encoderTurn) {
+                    while (yaw > -29) {
+                        angles = imu.getAngles();
+                        yaw = angles[0];
 
-                    FR.setPower(.4);
-                    FL.setPower(-.4);
-                    BR.setPower(.4);
-                    BL.setPower(-.4);
+                        FR.setPower(.4);
+                        FL.setPower(-.4);
+                        BR.setPower(.4);
+                        BL.setPower(-.4);
 
+                    }
+                    FR.setPower(0);
+                    FL.setPower(0);
+                    BR.setPower(0);
+                    BL.setPower(0);
+
+                    step = step + 1;
                 }
-                FR.setPower(0);
-                FL.setPower(0);
-                BR.setPower(0);
-                BL.setPower(0);
-
-                step = step + 1;
+                else{
+                    if (FL.getCurrentPosition() > NumberOfRevs3) {
+                        BL.setPower(-.5);
+                        BR.setPower(.5);
+                        FR.setPower(.5);
+                        FL.setPower(-.5);
+                    }
+                    else {
+                        BL.setPower(0);
+                        BR.setPower(0);
+                        FR.setPower(0);
+                        FL.setPower(0);
+                        step = step + 1;
+                    }
+                }
             }
             if (step == 17) {
                 turnCompleted = false;

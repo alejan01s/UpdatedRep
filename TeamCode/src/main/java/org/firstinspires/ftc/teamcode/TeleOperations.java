@@ -81,6 +81,8 @@ public class TeleOperations extends LinearOpMode {
     public boolean setEncoder = true;
     public boolean armMoving = false;
 
+    public boolean overrideLauncher = false;
+
     public void initializeRobot() throws InterruptedException {
 
         //CONFIGURATION
@@ -957,6 +959,26 @@ public class TeleOperations extends LinearOpMode {
                 buttonPusher.setPosition(.6);
                 Thread.sleep(1500);
                 buttonInit = false;
+            }
+
+            //MANUAL LAUNCHER OVERRIDE
+
+            if((gamepad1.dpad_up || gamepad1.dpad_down) && !shoot){
+                overrideLauncher = true;
+            }
+
+            if(overrideLauncher){
+                if(gamepad1.dpad_up){
+                    LauncherM.setPower(.25);
+                }
+                else if(gamepad1.dpad_down){
+                    LauncherM.setPower(-.25);
+                }
+                else{
+                    LauncherM.setPower(0);
+                    EncoderClicks = LauncherM.getCurrentPosition() + 2520;
+                    overrideLauncher = false;
+                }
             }
 
             /*

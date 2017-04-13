@@ -59,6 +59,8 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
     public boolean shoot1;
     public boolean fired;
 
+    public boolean encoderTurn = false;
+
     public void initializeRobot(){
 
         //DRIVE-TRAIN MOTORS
@@ -634,6 +636,9 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
                 BR.setPower(0);
                 FL.setPower(0);
                 BL.setPower(0);
+                if(yaw == 0){
+                    encoderTurn = true;
+                }
                 step=step+.25;
             }
             if(step == 15.75){
@@ -644,22 +649,39 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
                 step = step + .25;
             }
             if(step == 16){
-                while(yaw < 26){
-                    angles = imu.getAngles();
-                    yaw = angles[0];
+                if(!encoderTurn) {
+                    while (yaw < 26) {
+                        angles = imu.getAngles();
+                        yaw = angles[0];
 
-                    FR.setPower(-.4);
-                    FL.setPower(.4);
-                    BR.setPower(-.4);
-                    BL.setPower(.4);
+                        FR.setPower(-.4);
+                        FL.setPower(.4);
+                        BR.setPower(-.4);
+                        BL.setPower(.4);
 
-                }
+                    }
                     FR.setPower(0);
                     FL.setPower(0);
                     BR.setPower(0);
                     BL.setPower(0);
 
                     step = step + 1;
+                }
+                else{
+                    if(FL.getCurrentPosition() < NumberOfRevs3){
+                        FR.setPower(-.5);
+                        FL.setPower(.5);
+                        BR.setPower(-.5);
+                        BL.setPower(.5);
+                    }
+                    else{
+                        FR.setPower(0);
+                        FL.setPower(0);
+                        BR.setPower(0);
+                        BL.setPower(0);
+                        step = step + 1;
+                    }
+                }
             }
             if(step == 17){
                 turnCompleted = false;

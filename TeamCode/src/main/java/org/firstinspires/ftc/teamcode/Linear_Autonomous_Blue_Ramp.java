@@ -480,7 +480,7 @@ public class Linear_Autonomous_Blue_Ramp extends LinearOpMode{
                 }
             }
             if (step == 13) {
-                numRevs = FL.getCurrentPosition() - 35;
+                numRevs = FL.getCurrentPosition() - 45;
                 NumberOfRevs3 = FL.getCurrentPosition() - 340;
                 step = step + 1;
             }

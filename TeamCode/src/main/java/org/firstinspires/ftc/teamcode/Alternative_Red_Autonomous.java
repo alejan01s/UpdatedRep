@@ -803,7 +803,7 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
             }
 
             if (step == 25) {
-
+                
                 buttonPusher2.setPosition(0.5);
 
             }

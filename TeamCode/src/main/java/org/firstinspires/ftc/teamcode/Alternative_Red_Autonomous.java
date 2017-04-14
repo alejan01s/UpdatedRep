@@ -213,10 +213,10 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
             }
 
             if (step == 3) {
-                while(yaw < 0 || yaw > 1){
+                while(yaw < 2 || yaw > 3){
                     angles = imu.getAngles();
                     yaw = angles[0];
-                    if(yaw < 0){
+                    if(yaw < 2){
 
                         //turn clockwise
                         FR.setPower(-.1);
@@ -225,7 +225,7 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                         BL.setPower(.1);
 
                     }
-                    else if(yaw > 1){
+                    else if(yaw > 3){
 
                         //turn counter-clockwise
                         FR.setPower(0.1);
@@ -235,7 +235,7 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
 
                     }
 
-                    if(yaw > 0 && yaw < 1)
+                    if(yaw > 2 && yaw < 3)
                     {
 
                         break;
@@ -495,21 +495,21 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                     BR.setPower(0);
                     FL.setPower(0);
                     BL.setPower(0);
-                    NumberOfRevs1 = FR.getCurrentPosition() - 45;
+                    NumberOfRevs1 = FR.getCurrentPosition() + 25;
                     step = step + 1;
             }
 
             if (step == 15) {
 
-                while(FR.getCurrentPosition() > NumberOfRevs1) {
+                while(FR.getCurrentPosition() < NumberOfRevs1) {
 
                     FR.getCurrentPosition();
 
-                    if (FR.getCurrentPosition() > NumberOfRevs1) {
-                        FL.setPower(-0.2);
-                        BL.setPower(-0.2);
-                        FR.setPower(-0.2);
-                        BR.setPower(-0.2);
+                    if (FR.getCurrentPosition() < NumberOfRevs1) {
+                        FL.setPower(0.2);
+                        BL.setPower(0.2);
+                        FR.setPower(0.2);
+                        BR.setPower(0.2);
 
                     } else {
 
@@ -598,6 +598,45 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                 }
             }
             if (step == 18) {
+                step = step + 1;
+            }
+
+            if (step == 19) {
+//                while(FR.getCurrentPosition() > NumberOfRevs1) {
+//
+//                    FR.getCurrentPosition();
+//
+//                    if (FR.getCurrentPosition() > NumberOfRevs1) {
+//                        FL.setPower(-0.3);
+//                        BL.setPower(-0.3);
+//                        FR.setPower(-0.3);
+//                        BR.setPower(-0.3);
+//
+//                    } else {
+//
+//                        break;
+//
+//                    }
+//                }
+//
+//                FL.setPower(0);
+//                BL.setPower(0);
+//                FR.setPower(0);
+//                BR.setPower(0);
+                FR.setPower(-.15);
+                BR.setPower(.15);
+                FL.setPower(.15);
+                BL.setPower(-.15);
+                sleep(250);
+                FR.setPower(0);
+                BR.setPower(0);
+                FL.setPower(0);
+                BL.setPower(0);
+                step = step + 1;
+
+            }
+
+            if (step == 20) {
 
                 if (OppPushSequence) {
 
@@ -677,42 +716,7 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                     NumberOfRevs1 = FR.getCurrentPosition() - 90;
 
                     step = step + 1;
-
                 }
-
-            }
-
-            if (step == 19) {
-                while(FR.getCurrentPosition() > NumberOfRevs1) {
-
-                    FR.getCurrentPosition();
-
-                    if (FR.getCurrentPosition() > NumberOfRevs1) {
-                        FL.setPower(-0.3);
-                        BL.setPower(-0.3);
-                        FR.setPower(-0.3);
-                        BR.setPower(-0.3);
-
-                    } else {
-
-                        break;
-
-                    }
-                }
-
-                FL.setPower(0);
-                BL.setPower(0);
-                FR.setPower(0);
-                BR.setPower(0);
-
-                step = step + 1;
-
-            }
-
-            if (step == 20) {
-
-                step = step + 1;
-
             }
 
             //LAUNCH BALLS
@@ -728,13 +732,14 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                 sleep(150);
                 shoot = true;
                 if(shot){
+                    NumberOfRevs1 = FR.getCurrentPosition() + 50;
                     step = step + 1;
                 }
             }
 
             if (step == 23 && !shoot) {
-
-                while (yaw > 16 || yaw < 15) {
+//isStopRequested is a test function
+                while (yaw > 16 || yaw < 15 && !isStopRequested()) {
 
                     angles = imu.getAngles();
                     yaw = angles[0];
@@ -758,9 +763,7 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                         BR.setPower(-0.25);
 
                     }
-
                 }
-
                 telemetry.update();
 
                 FL.setPower(0);
@@ -772,6 +775,26 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
 
                 step = step + 1;
 
+//                if (FR.getCurrentPosition() > NumberOfRevs1) {
+//
+//                    FR.setPower(0.4);
+//                    BR.setPower(0.4);
+//                    FL.setPower(-0.4);
+//                    BL.setPower(-0.4);
+//
+//                } else {
+//
+//                    telemetry.update();
+//
+//                    FL.setPower(0);
+//                    BL.setPower(0);
+//                    FR.setPower(0);
+//                    BR.setPower(0);
+//
+//                    NumberOfRevs1 = FR.getCurrentPosition() - 2000;
+//
+//                    step = step + 1;
+//                }
             }
 
             if (step == 24) {
@@ -803,7 +826,7 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
             }
 
             if (step == 25) {
-                
+
                 buttonPusher2.setPosition(0.5);
 
             }

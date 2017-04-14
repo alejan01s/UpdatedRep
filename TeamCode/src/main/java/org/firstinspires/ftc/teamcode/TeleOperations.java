@@ -171,7 +171,7 @@ public class TeleOperations extends LinearOpMode {
         tensionLift = false;
 
         while(setEncoder == true) {
-            if (LauncherM.getCurrentPosition() < 3000) {
+            if (LauncherM.getCurrentPosition() < 3000 || LauncherM.getCurrentPosition() > 7000) {
 
                 EncoderClicks = LauncherM.getCurrentPosition() + 2520;
 
@@ -419,6 +419,12 @@ public class TeleOperations extends LinearOpMode {
                     FL.setPower(-y - x2 + x);
                     BL.setPower(y - x2 + x);
                 }
+            }
+            else{
+                FR.setPower(0);
+                BR.setPower(0);
+                FL.setPower(0);
+                BL.setPower(0);
             }
             /*
 

@@ -464,12 +464,28 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
             }
 
             if (step == 12) {
-                pushed = false;
+                while(bottomOD.getRawLightDetected() < .04) {
+                    FR.setPower(.25);
+                    BR.setPower(.25);
+                    FL.setPower(.25);
+                    BL.setPower(.25);
+                }
+                FR.setPower(0);
+                BR.setPower(0);
+                FL.setPower(0);
+                BL.setPower(0);
                 step = step + 1;
             }
 
             if (step == 13) {
-                if(distanceRight > 15 || distanceRight == 0) {
+                pushed = false;
+                step = step + 1;
+            }
+
+            if (step == 14) {
+                sonar.getDistances("right");
+                distanceRight = distances[1];
+                if(distanceRight > 13 || distanceRight == 0) {
                     FR.setPower(.15);
                     BR.setPower(-.15);
                     FL.setPower(-.15);
@@ -480,36 +496,22 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                     BR.setPower(0);
                     FL.setPower(0);
                     BL.setPower(0);
+                    NumberOfRevs1 = FR.getCurrentPosition() - 75;
                     step = step + 1;
                 }
-            }
-
-            if (step == 14) {
-                while(bottomOD.getRawLightDetected() < .04) {
-                    FR.setPower(.25);
-                    BR.setPower(.25);
-                    FL.setPower(.25);
-                    BL.setPower(.25);
-                }
-                    FR.setPower(0);
-                    BR.setPower(0);
-                    FL.setPower(0);
-                    BL.setPower(0);
-                    NumberOfRevs1 = FR.getCurrentPosition() + 25;
-                    step = step + 1;
             }
 
             if (step == 15) {
 
-                while(FR.getCurrentPosition() < NumberOfRevs1) {
+                while(FR.getCurrentPosition() > NumberOfRevs1) {
 
                     FR.getCurrentPosition();
 
-                    if (FR.getCurrentPosition() < NumberOfRevs1) {
-                        FL.setPower(0.2);
-                        BL.setPower(0.2);
-                        FR.setPower(0.2);
-                        BR.setPower(0.2);
+                    if (FR.getCurrentPosition() > NumberOfRevs1) {
+                        FL.setPower(-0.2);
+                        BL.setPower(-0.2);
+                        FR.setPower(-0.2);
+                        BR.setPower(-0.2);
 
                     } else {
 
@@ -522,6 +524,9 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                 BL.setPower(0);
                 FR.setPower(0);
                 BR.setPower(0);
+                telemetry.update();
+
+                sleep(75);
 
                 step = step + 1;
 
@@ -531,14 +536,22 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                 nearPush = false;
                 OppPushSequence = false;
 
-                NumberOfRevs4 = FL.getCurrentPosition() - 30;
-                NumberOfRevs3 = FL.getCurrentPosition() - 300;
-                sleep(150);
+                NumberOfRevs4 = FL.getCurrentPosition() - 75;
+                NumberOfRevs3 = FL.getCurrentPosition() - 325;
+                telemetry.update();
+                sleep(75);
+                //COLOR SENSORS
+                colors = color.getColor();
+
+                colorLRed = colors[0];
+                colorLBlue = colors[1];
+                colorRRed = colors[2];
+                colorRBlue = colors[3];
+                sleep(100);
                 step = step + 1;
             }
 
             if (step == 17) {
-
                 isRed = colorRRed >= 1 && colorRRed > colorRBlue ? true : false;
                 isBlue = colorRBlue >= 1 && colorRBlue > colorRRed ? true : false;
 
@@ -555,10 +568,10 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                     if(FL.getCurrentPosition() > NumberOfRevs4)
                     {
 
-                        BL.setPower(-.15);
-                        BR.setPower(-.15);
-                        FR.setPower(-.15);
-                        FL.setPower(-.15);
+                        BL.setPower(-.2);
+                        BR.setPower(-.2);
+                        FR.setPower(-.2);
+                        FL.setPower(-.2);
 
                     }
 
@@ -568,6 +581,9 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                         BR.setPower(0);
                         FR.setPower(0);
                         FL.setPower(0);
+
+                        sleep(5);
+
                         if (!pushed) {
                             push = true;
                         } else {
@@ -578,16 +594,17 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                 }
                 else if(OppPushSequence){
                     if(FL.getCurrentPosition() > NumberOfRevs3) {
-                        BL.setPower(-.15);
-                        BR.setPower(-.15);
-                        FR.setPower(-.15);
-                        FL.setPower(-.15);
+                        BL.setPower(-.2);
+                        BR.setPower(-.2);
+                        FR.setPower(-.2);
+                        FL.setPower(-.2);
                     }
                     else {
                         BL.setPower(0);
                         BR.setPower(0);
                         FR.setPower(0);
                         FL.setPower(0);
+                        sleep(5);
                         if (!pushed) {
                             push = true;
                         }
@@ -623,11 +640,11 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
 //                BL.setPower(0);
 //                FR.setPower(0);
 //                BR.setPower(0);
-                FR.setPower(-.15);
-                BR.setPower(.15);
-                FL.setPower(.15);
-                BL.setPower(-.15);
-                sleep(250);
+                FR.setPower(-.5);
+                BR.setPower(.5);
+                FL.setPower(.5);
+                BL.setPower(-.5);
+                sleep(450);
                 FR.setPower(0);
                 BR.setPower(0);
                 FL.setPower(0);
@@ -713,7 +730,7 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                     FR.setPower(0);
                     BR.setPower(0);
 
-                    NumberOfRevs1 = FR.getCurrentPosition() - 90;
+                    NumberOfRevs1 = FR.getCurrentPosition() - 180;
 
                     step = step + 1;
                 }
@@ -732,13 +749,12 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                 sleep(150);
                 shoot = true;
                 if(shot){
-                    NumberOfRevs1 = FR.getCurrentPosition() + 50;
                     step = step + 1;
                 }
             }
 
             if (step == 23 && !shoot) {
-//isStopRequested is a test function
+                //isStopRequested is a test function
                 while (yaw > 16 || yaw < 15 && !isStopRequested()) {
 
                     angles = imu.getAngles();
@@ -877,7 +893,6 @@ public class Alternative_Red_Autonomous extends LinearOpMode {
                     LauncherM.setPower(.1);
                 } else {
                     LauncherM.setPower(0);
-                    fired = true;
                     shot = true;
                     shoot = false;
                     EncoderClicks = EncoderClicks + 2510;

@@ -109,7 +109,7 @@ public class Linear_Autonmous_Red_Ramp extends LinearOpMode{
         double step = 0;
 
         //INITIAL REVOLUTION VARIABLES
-        int NumberOfRevs1 = -325;
+        int NumberOfRevs1 = -400;
         int NumberOfRevs2 = -500;
 
         imuTest imu = new imuTest("imu", hardwareMap);

@@ -57,7 +57,7 @@ public class Basic_Autonomous extends DefinerClass {
         int Angle2 = 90;
         int Angle3 = 180;
         int FinalAngle = 55;
-        int NumberOfRevs1 = -800;
+        int NumberOfRevs1 = -1050;
         int NumberOfRevs2 = -320;
         int NumberOfRevsFinal = -3500;
 

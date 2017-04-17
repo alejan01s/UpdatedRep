@@ -216,10 +216,10 @@ public class Alternative_Blue_Autonomous extends LinearOpMode {
 
             if (step == 3) {
 
-                while(yaw < -2 || yaw > -1){
+                while(yaw < -4 || yaw > -3){
                     angles = imu.getAngles();
                     yaw = angles[0];
-                    if(yaw < -2){
+                    if(yaw < -4){
 
                         //turn clockwise
                         FR.setPower(-.1);
@@ -228,7 +228,7 @@ public class Alternative_Blue_Autonomous extends LinearOpMode {
                         BL.setPower(.1);
 
                     }
-                    else if(yaw > -1){
+                    else if(yaw > -3){
 
                         //turn counter-clockwise
                         FR.setPower(0.1);
@@ -238,7 +238,7 @@ public class Alternative_Blue_Autonomous extends LinearOpMode {
 
                     }
 
-                    if(yaw > -2 && yaw < -1)
+                    if(yaw > -4 && yaw < -3)
                     {
 
                         break;

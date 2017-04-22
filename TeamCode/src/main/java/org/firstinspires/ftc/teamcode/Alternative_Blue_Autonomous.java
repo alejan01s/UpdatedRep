@@ -531,6 +531,7 @@ public class Alternative_Blue_Autonomous extends LinearOpMode {
                 NumberOfRevs4 = FL.getCurrentPosition() - 60;
                 NumberOfRevs3 = FL.getCurrentPosition() - 300;
                 step = step + 1;
+                
             }
 
             if (step == 17) {

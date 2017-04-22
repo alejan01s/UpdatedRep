@@ -113,7 +113,7 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
         double step = 0;
 
         //INITIAL REVOLUTION VARIABLES
-        int NumberOfRevs1 = -400;
+        int NumberOfRevs1 = -700;
         int NumberOfRevs2 = -200;
 
         imuTest imu = new imuTest("imu", hardwareMap);
@@ -342,8 +342,8 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
                 }
             }
             if (step == 7) {
-                numRevs = FL.getCurrentPosition() - 90;
-                NumberOfRevs3 = FL.getCurrentPosition() - 425;
+                numRevs = FL.getCurrentPosition() - 105;
+                NumberOfRevs3 = FL.getCurrentPosition() - 450;
                 step = step + 1;
             }
             if (step == 8) {
@@ -499,8 +499,8 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
                     BR.setPower(0);
                     FL.setPower(0);
                     BL.setPower(0);
-                    numRevs = FL.getCurrentPosition() - 70;
-                    NumberOfRevs3 = FL.getCurrentPosition() - 340;
+                    numRevs = FL.getCurrentPosition() - 90;
+                    NumberOfRevs3 = FL.getCurrentPosition() - 375;
                     step = step + 1;
                 }
             }
@@ -515,23 +515,23 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
                     OppPushSequence = true;
                 }
                 if (nearPush) {
-//                    if (FL.getCurrentPosition() > numRevs) {
-//                        BL.setPower(-.1);
-//                        BR.setPower(-.1);
-//                        FR.setPower(-.1);
-//                        FL.setPower(-.1);
-//                    } else {
-//                        BL.setPower(0);
-//                        BR.setPower(0);
-//                        FR.setPower(0);
-//                        FL.setPower(0);
+                    if (FL.getCurrentPosition() > numRevs) {
+                        BL.setPower(-.1);
+                        BR.setPower(-.1);
+                        FR.setPower(-.1);
+                        FL.setPower(-.1);
+                    } else {
+                        BL.setPower(0);
+                        BR.setPower(0);
+                        FR.setPower(0);
+                        FL.setPower(0);
                         sleep(5);
                         if (!pushed) {
                             push = true;
                         } else {
                             step = step + .5;
                         }
-                    //}
+                    }
                 } else if (OppPushSequence) {
                     if (FL.getCurrentPosition() > NumberOfRevs3) {
                         BL.setPower(-.1);
@@ -612,7 +612,7 @@ public class Linear_Autonomous_Blue_Main extends LinearOpMode {
             }
             if (step == 17) {
                 turnCompleted = false;
-                NumberOfRevs3 = FL.getCurrentPosition() + 3250;
+                NumberOfRevs3 = FL.getCurrentPosition() + 2900;
                 step = step + 1;
             }
             if (step == 18) {

@@ -180,7 +180,7 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
                     shoot1 = true;
                 }
                 if(fired) {
-                    NumberOfRevs2 = FL.getCurrentPosition() - 75;
+                    NumberOfRevs2 = FL.getCurrentPosition() - 25;
                     step++;
                 }
             }
@@ -203,7 +203,7 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
                         FR.setPower(0);
                         FL.setPower(0);
                         sleep(250);
-                        NumberOfRevs3 = FR.getCurrentPosition() - 1300;
+                        NumberOfRevs3 = FR.getCurrentPosition() - 1500;
                         step = step + .5;
                     }
                 }
@@ -237,10 +237,10 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
                 }
             }
             if(step == 5){
-                while(yaw < 0 || yaw > 1){
+                while(yaw < -2 || yaw > -1){
                     angles = imu.getAngles();
                     yaw = angles[0];
-                    if(yaw < 0){
+                    if(yaw < -2){
 
                         //turn clockwise
                         FR.setPower(-.1);
@@ -249,7 +249,7 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
                         BL.setPower(.1);
 
                     }
-                    else if(yaw > 1){
+                    else if(yaw > -1){
 
                         //turn counter-clockwise
                         FR.setPower(0.1);
@@ -259,7 +259,7 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
 
                     }
 
-                    if(yaw > 0 && yaw < 1)
+                    if(yaw > -2 && yaw < -1)
                     {
 
                         break;
@@ -311,7 +311,7 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
             }
             if(step == 5.75){
                 turnCompleted = false;
-                NumberOfRevs3 = FL.getCurrentPosition() + 75;
+                NumberOfRevs3 = FL.getCurrentPosition() + 25;
                 step = step + .2;
             }
             if(step == 5.95) {
@@ -336,7 +336,7 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
                     FR.setPower(-.075);
                     BR.setPower(.075);
                     FL.setPower(.075);
-                    BL.setPower(-.075);
+                    BL.setPower(-.11);
                     telemetry.update();
                 }
                 else {
@@ -348,7 +348,7 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
                 }
             }
             if(step == 6.5){
-                NumberOfRevs3 = FL.getCurrentPosition() - 95;
+                NumberOfRevs3 = FL.getCurrentPosition() - 5;
                 step=step+.25;
             }
             //Position
@@ -371,7 +371,7 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
             //set possible rev3
             if(step == 7){
                 NumberOfRevs4 = FL.getCurrentPosition() - 55;
-                NumberOfRevs3 = FL.getCurrentPosition() - 450;
+                NumberOfRevs3 = FL.getCurrentPosition() - 300;
                 step=step+1;
             }
 
@@ -448,10 +448,10 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
             }
             if(step == 10){
                 if(FL.getCurrentPosition() > NumberOfRevs3) {
-                    BL.setPower(-.75);
-                    BR.setPower(-.75);
-                    FR.setPower(-.75);
-                    FL.setPower(-.75);
+                    BL.setPower(-1);
+                    BR.setPower(-1);
+                    FR.setPower(-1);
+                    FL.setPower(-1);
                 }
                 else {
                     step=step+1;
@@ -685,7 +685,7 @@ public class Linear_Autonomous_Red_Main extends LinearOpMode {
             }
             if(step == 17){
                 turnCompleted = false;
-                NumberOfRevs3 = FL.getCurrentPosition() + 3500;
+                NumberOfRevs3 = FL.getCurrentPosition() + 3150;
                 step=step+1;
             }
             if(step == 18){

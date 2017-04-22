@@ -215,11 +215,11 @@ public class Alternative_Blue_Autonomous extends LinearOpMode {
             }
 
             if (step == 3) {
-
-                while(yaw < -4 || yaw > -3){
+                sleep(100);
+                while(yaw < -6 || yaw > -5){
                     angles = imu.getAngles();
                     yaw = angles[0];
-                    if(yaw < -4){
+                    if(yaw < -6){
 
                         //turn clockwise
                         FR.setPower(-.1);
@@ -228,7 +228,7 @@ public class Alternative_Blue_Autonomous extends LinearOpMode {
                         BL.setPower(.1);
 
                     }
-                    else if(yaw > -3){
+                    else if(yaw > -5){
 
                         //turn counter-clockwise
                         FR.setPower(0.1);
@@ -238,7 +238,7 @@ public class Alternative_Blue_Autonomous extends LinearOpMode {
 
                     }
 
-                    if(yaw > -4 && yaw < -3)
+                    if(yaw > -6 && yaw < -5)
                     {
 
                         break;
@@ -260,7 +260,7 @@ public class Alternative_Blue_Autonomous extends LinearOpMode {
                     FR.setPower(-.15);
                     BR.setPower(.15);
                     FL.setPower(.15);
-                    BL.setPower(-.15);
+                    BL.setPower(-.2);
 
                 }
                 else{
@@ -466,7 +466,7 @@ public class Alternative_Blue_Autonomous extends LinearOpMode {
             }
 
             if (step == 13) {
-                if(distanceLeft > 19 || distanceLeft == 0){
+                if(distanceLeft > 17 || distanceLeft == 0){
                     FR.setPower(-.15);
                     BR.setPower(.15);
                     FL.setPower(.15);
@@ -528,7 +528,7 @@ public class Alternative_Blue_Autonomous extends LinearOpMode {
                 nearPush = false;
                 OppPushSequence = false;
 
-                NumberOfRevs4 = FL.getCurrentPosition() - 30;
+                NumberOfRevs4 = FL.getCurrentPosition() - 60;
                 NumberOfRevs3 = FL.getCurrentPosition() - 300;
                 step = step + 1;
             }
@@ -672,7 +672,7 @@ public class Alternative_Blue_Autonomous extends LinearOpMode {
                     FR.setPower(0);
                     BR.setPower(0);
 
-                    NumberOfRevs1 = FR.getCurrentPosition() - 90;
+                    NumberOfRevs1 = FR.getCurrentPosition() - 250;
 
                     step = step + 1;
 
